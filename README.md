@@ -7,5 +7,6 @@ Breakout style game with new experiences.
 
 - Ronnie Lewis
 - Arthur Allen
+https://github.com/ErmineNotyours
 - Rafael Malave
 - Nick Damberg
