@@ -5,6 +5,7 @@ ctx.font = '30px Arial';
 
 var HEIGHT = 700;
 var WIDTH = 700;
+var NUMBLOCKS = 35;
 var block = [];
 
 var playerTop = {
@@ -14,7 +15,7 @@ var playerTop = {
   spdY:10,
   width:60,
   height:10,
-  color:'green',
+  color:'#2ecc71',
 };
 
 var playerBottom = {
@@ -24,7 +25,7 @@ var playerBottom = {
   spdY:10,
   width:60,
   height:10,
-  color:'green',
+  color:'#2ecc71',
 };
 
 var playerLeft = {
@@ -34,7 +35,7 @@ var playerLeft = {
   spdY:10,
   width:10,
   height:60,
-  color:'green',
+  color:'#2ecc71',
 };
 
 var playerRight = {
@@ -44,7 +45,7 @@ var playerRight = {
   spdY:10,
   width:10,
   height:60,
-  color:'green',
+  color:'#2ecc71',
 };
 
 var ball = {
@@ -93,7 +94,7 @@ var Blocks = function(blockX, blockY){
 };
 
 var generateBlocks = function(){
-  for (var b = 0; b < 10; b++){
+  for (var b = 0; b < NUMBLOCKS; b++){
     var blockX = Math.floor((Math.random() * 250) + 225);
     var blockY = Math.floor((Math.random() * 250) + 225);
     block [b] = new Blocks(blockX, blockY);
@@ -102,12 +103,44 @@ var generateBlocks = function(){
 generateBlocks();
 
 var drawBlocks = function(){
-  for (var b = 0; b < 10; b++){
+  for (var b = 0; b < block.length; b++){
     ctx.fillStyle = 'white';
     ctx.fillRect(block[b].blockX, block[b].blockY, 10, 10);
     //console.log('New Blocks at ', block[b].blockX, block[b].blockY);
   }
 };
+
+// Provisional ball/brick colision detection:
+// var getDistanceBetweenEntity = function (entity1,entity2){ //return distance (number)
+//   var vx = entity1.x - entity2.x;
+//   var vy = entity1.y - entity2.y;
+//   return Math.sqrt(vx * vx + vy * vy);
+// };
+//
+// var testCollisionEntity = function (entity1,entity2){ //return if colliding (true/false)
+//   var distance = getDistanceBetweenEntity(entity1,entity2);
+//   return distance < 30;
+// };
+// var updateCollisionBlock = function(){
+//   for(var key in block.length){
+//     var isColliding = testCollisionEntity(ball,block[key]);
+//     if(isColliding){
+//       // Add code for redirecting ball direction
+//
+//       //player.hp = player.hp - 1;
+//       // In our code, remove block[key]
+//       // To do this, block[key] = block[key+1], block[key+1] = block[key+2], etc. then  block.pop()
+//       for (var r = key; key < block.length; key++){
+//         block[r] = block[r + 1];
+//       }
+//       block.pop();
+//     }
+//   }
+// };
+//left arrow	37.
+//up arrow	38
+//right arrow	39
+//down arrow	40
 
 document.onkeydown = function(event){
   if(event.keyCode === 68 || event.keyCode === 39){ //d or Right arrow
@@ -189,12 +222,43 @@ var updatePlayerRightPosition = function(){
     playerRight.y = HEIGHT - playerRight.height / 2;
 };
 
-var updateBallPosition = function(){
-  if(ball.x + ball.spdX > WIDTH - ball.ballSize || ball.x + ball.spdX < ball.ballSize) {
-    ball.spdX = -ball.spdX;
+var updateBallPosition = function() {
+  if(ball.x < ball.ballSize) {
+    //if(ball.y > playerLeft.x && ball.y < playerLeft.y + playerLeft.height) {
+    if(ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width){
+      ball.spdX = -ball.spdX;
+      console.log('collision!');
+    } else {
+      console.log('GAME OVER');
+      document.location.reload();
+    }
   }
-  if(ball.y + ball.spdY > HEIGHT - ball.ballSize || ball.y + ball.spdY < ball.ballSize) {
-    ball.spdY = -ball.spdY;
+  if(ball.x > WIDTH - ball.ballSize){
+    if(ball.y > playerRight.y - (playerRight.height / 2) && ball.y < playerRight.y + (playerRight.height / 2) && ball.x < playerRight.x + playerRight.width){
+      ball.spdX = -ball.spdX;
+      console.log('collision!');
+    } else {
+      console.log('GAME OVER');
+      document.location.reload();
+    }
+  }
+  if(ball.y < ball.ballSize) {
+    if(ball.x > playerTop.x - (playerTop.width / 2) && ball.x < playerTop.x + (playerTop.width / 2) && ball.y < playerTop.y + playerTop.height){
+      ball.spdY = -ball.spdY;
+      console.log('collision!');
+    } else {
+      console.log('GAME OVER');
+      document.location.reload();
+    }
+  }
+  if(ball.y > HEIGHT - ball.ballSize){
+    if(ball.x > playerBottom.x - (playerBottom.width / 2) && ball.x < playerBottom.x + (playerBottom.width / 2) && ball.y > playerBottom.y - playerBottom.height){
+      ball.spdY = -ball.spdY;
+      console.log('collision!');
+    } else {
+      console.log('GAME OVER');
+      document.location.reload();
+    }
   }
   ball.x += ball.spdX;
   ball.y += ball.spdY;
