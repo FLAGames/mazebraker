@@ -74,7 +74,7 @@ updateEntityPosition = function(something){
 drawEntity = function(something){
   ctx.save();
   ctx.fillStyle = something.color;
-  ctx.fillRect(something.x-something.width/2,something.y-something.height/2,something.width,something.height);
+  ctx.fillRect(something.x - something.width / 2,something.y - something.height / 2,something.width,something.height);
   ctx.restore();
 };
 
@@ -124,10 +124,10 @@ updatePlayerBottomPosition = function(){
   if(playerBottom.pressingLeft)
     playerBottom.x -= 10;
   //ispositionvalid
-  if(playerBottom.x < playerBottom.width/2)
-    playerBottom.x = playerBottom.width/2;
-  if(playerBottom.x > WIDTH-playerBottom.width/2)
-    playerBottom.x = WIDTH - playerBottom.width/2;
+  if(playerBottom.x < playerBottom.width / 2)
+    playerBottom.x = playerBottom.width / 2;
+  if(playerBottom.x > WIDTH - playerBottom.width / 2)
+    playerBottom.x = WIDTH - playerBottom.width / 2;
 };
 
 updatePlayerTopPosition = function(){
@@ -136,10 +136,10 @@ updatePlayerTopPosition = function(){
   if(playerTop.pressingLeft)
     playerTop.x -= 10;
   //ispositionvalid
-  if(playerTop.x < playerTop.width/2)
-    playerTop.x = playerTop.width/2;
-  if(playerTop.x > WIDTH-playerTop.width/2)
-    playerTop.x = WIDTH - playerTop.width/2;
+  if(playerTop.x < playerTop.width / 2)
+    playerTop.x = playerTop.width / 2;
+  if(playerTop.x > WIDTH - playerTop.width / 2)
+    playerTop.x = WIDTH - playerTop.width / 2;
 };
 
 updatePlayerLeftPosition = function(){
@@ -148,10 +148,10 @@ updatePlayerLeftPosition = function(){
   if(playerLeft.pressingUp)
     playerLeft.y -= 10;
   //ispositionvalid
-  if(playerLeft.y < playerLeft.height/2)
-    playerLeft.y = playerLeft.height/2;
-  if(playerLeft.y > HEIGHT - playerLeft.height/2)
-    playerLeft.y = HEIGHT - playerLeft.height/2;
+  if(playerLeft.y < playerLeft.height / 2)
+    playerLeft.y = playerLeft.height / 2;
+  if(playerLeft.y > HEIGHT - playerLeft.height / 2)
+    playerLeft.y = HEIGHT - playerLeft.height / 2;
 };
 
 updatePlayerRightPosition = function(){
@@ -160,10 +160,10 @@ updatePlayerRightPosition = function(){
   if(playerRight.pressingUp)
     playerRight.y -= 10;
   //ispositionvalid
-  if(playerRight.y < playerRight.height/2)
-    playerRight.y = playerRight.height/2;
-  if(playerRight.y > HEIGHT - playerRight.height/2)
-    playerRight.y = HEIGHT - playerRight.height/2;
+  if(playerRight.y < playerRight.height / 2)
+    playerRight.y = playerRight.height / 2;
+  if(playerRight.y > HEIGHT - playerRight.height / 2)
+    playerRight.y = HEIGHT - playerRight.height / 2;
 };
 
 updateBallPosition = function(){
@@ -189,6 +189,30 @@ update = function(){
   drawEntity(playerRight);
   updateBallPosition();
   drawBall();
+  drawBlocks();
 };
 
 setInterval(update,40);
+
+function Blocks(blockX, blockY){
+  this.blockX = blockX;
+  this.blockY = blockY;
+}
+// Make Blocks
+function generateBlocks(){
+  block = [];
+  for (var b = 0; b < 10; b++){
+    var blockX = Math.floor((Math.random() * 250) + 225);
+    var blockY = Math.floor((Math.random() * 250) + 225);
+    block [b] = new Blocks(blockX, blockY);
+  }
+}
+generateBlocks();
+
+function drawBlocks(){
+  for (var b = 0; b < 10; b++){
+    ctx.fillStyle = 'white';
+    ctx.fillRect(block[b].blockX, block[b].blockY, 10, 10);
+    //console.log('New Blocks at ', block[b].blockX, block[b].blockY);
+  }
+}
