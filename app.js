@@ -8,7 +8,7 @@ var WIDTH = 700;
 var NUMBLOCKS = 35;
 var block = [];
 
-// Constructor for paddles 
+// Constructor for paddles
 function Paddle(x, y, spdX, spdY, width, height, color) {
   this.x = x;
   this.y = y;
@@ -19,19 +19,21 @@ function Paddle(x, y, spdX, spdY, width, height, color) {
   this.color = color;
 }
 
+function Ball(id,x,y,spdX,spdY) {
+  this.x = x;
+  this.y = y;
+  this.spdX = spdX;
+  this.spdY = spdY;
+  this.ballSize = 10;
+  this.color = '#3498db';
+};
+
+var ball = new Ball (1,100,200, 4, -4);
+
 var playerTop = new Paddle(350, 5, 30, 10, 60, 10, '#2ecc71');
 var playerBottom = new Paddle(350, 695, 30, 10, 60, 10, '#2ecc71');
 var playerLeft = new Paddle(5, 350, 30, 10, 10, 60, '#2ecc71');
 var playerRight = new Paddle(695, 350, 30, 10, 10, 60, '#2ecc71');
-
-var ball = {
-  x: 100,
-  y: 200,
-  spdX: 4,
-  spdY: -4,
-  ballSize: 10,
-  color:'#3498db',
-};
 
 var updateEntity = function (something){
   updateEntityPosition(something);
