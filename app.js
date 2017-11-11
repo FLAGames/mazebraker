@@ -109,33 +109,38 @@ var drawBlocks = function(){
   }
 };
 
+//left arrow	37.
+//up arrow	38
+//right arrow	39
+//down arrow	40
+
 document.onkeydown = function(event){
-  if(event.keyCode === 68){ //d
+  if(event.keyCode === 68 || event.keyCode === 39){ //d or Right arrow
     playerBottom.pressingRight = true;
     playerTop.pressingRight = true;
-  }else if(event.keyCode === 83){ //s
+  }else if(event.keyCode === 83 || event.keyCode === 40){ //s or Down arrow
     playerLeft.pressingDown = true;
     playerRight.pressingDown = true;
-  }else if(event.keyCode === 65){ //a
+  }else if(event.keyCode === 65 || event.keyCode === 37){ //a or Left arrow
     playerBottom.pressingLeft = true;
     playerTop.pressingLeft = true;
-  }else if(event.keyCode === 87){ // w
+  }else if(event.keyCode === 87 || event.keyCode === 38){ // w or Up Arrow
     playerLeft.pressingUp = true;
     playerRight.pressingUp = true;
   }
 };
 
 document.onkeyup = function(event){
-  if(event.keyCode === 68){ //d
+  if(event.keyCode === 68 || event.keyCode === 39){ //d or Right arrow
     playerBottom.pressingRight = false;
     playerTop.pressingRight = false;
-  }else if(event.keyCode === 83){ //s
+  }else if(event.keyCode === 83 || event.keyCode === 40){ //s or Down arrow
     playerLeft.pressingDown = false;
     playerRight.pressingDown = false;
-  }else if(event.keyCode === 65){ //a
+  }else if(event.keyCode === 65 || event.keyCode === 37){ //a or Left arrow
     playerBottom.pressingLeft = false;
     playerTop.pressingLeft = false;
-  }else if(event.keyCode === 87){ // w
+  }else if(event.keyCode === 87 || event.keyCode === 38){ // w or Up Arrow
     playerLeft.pressingUp = false;
     playerRight.pressingUp = false;
   }
