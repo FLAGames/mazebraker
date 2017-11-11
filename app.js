@@ -76,18 +76,46 @@ var Blocks = function(x, y){
 };
 
 var generateBlocks = function(){
-  for (var b = 0; b < NUMBLOCKS; b++){
-    var x = Math.floor((Math.random() * 500) + 100);
-    var y = Math.floor((Math.random() * 500) + 100);
-    block [b] = new Blocks(x, y);
-  }
+//  for (var b = 0; b < NUMBLOCKS; b++){
+  // var x = Math.floor((Math.random() * 500) + 100);
+  // var y = Math.floor((Math.random() * 500) + 100);
+  // // check to see if candidate new block is close to existing Blocks
+  // // for loop through all existing blocks.  Loop should not run the first time, when block[] is empty
+  // // b will advance even if a block is too close, leaving less than NUMBLOCKS blocks
+  // if (block.length > 0){
+  //   for (var prob = 0; prob < block.length; prob++){
+  //     console.log('Inside of for prob: prob, block.length, x = ',prob, block.length, x);
+  //     if (Math.abs(x - block[prob].x) > 100 && Math.abs(y - block[prob].y) > 100){
+  //       block [b] = new Blocks(x, y);
+  //     }
+  //     else {
+  //       block [b] = new Blocks(x, y);
+  //       console.log('blocks were too close');
+  //     } // end if
+  //   } // next prob
+  // } // end if block.length
+  // else { // create first block to get the ball rolling
+  //
+  //   //console.log('created first block');
+  // }
+  //} // next b
+  var count = 0;
+  for (var i = 100; i < 600; i = i + 30){
+    for (var j = 100; j < 600; j = j + 30){
+      if ((Math.floor(Math.random() * 10) < 5)){
+        console.log('New block at ', i, j);
+        block [count] = new Blocks(i, j);
+        count++;
+      } // end if
+    } // next j
+  } // next i
 };
 generateBlocks();
 
 var drawBlocks = function(){
   for (var b = 0; b < block.length; b++){
     ctx.fillStyle = 'white';
-    ctx.fillRect(block[b].x, block[b].y, 15, 15);
+    ctx.fillRect(block[b].x, block[b].y, 20, 20);
   }
 };
 
