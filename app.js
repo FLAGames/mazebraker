@@ -109,11 +109,6 @@ var drawBlocks = function(){
   }
 };
 
-//left arrow	37.
-//up arrow	38
-//right arrow	39
-//down arrow	40
-
 document.onkeydown = function(event){
   if(event.keyCode === 68 || event.keyCode === 39){ //d or Right arrow
     playerBottom.pressingRight = true;
