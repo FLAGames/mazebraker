@@ -86,6 +86,7 @@ var drawBlocks = function(){
     ctx.fillRect(block[b].x, block[b].y, 15, 15);
   }
 };
+
 // Provisional ball/brick colision detection:
 var getDistanceBetweenEntity = function (entity1,entity2){ //return distance (number)
   var vx = entity1.x - entity2.x;
@@ -216,8 +217,9 @@ var updatePlayerRightPosition = function(){
 };
 
 var updateBallPosition = function() {
-  if(ball.x + ball.spdx < ball.ballSize) {
-    if(ball.y > playerLeft.y && ball.y < playerLeft.y + playerLeft.height) {
+  if(ball.x < ball.ballSize) {
+    //if(ball.y > playerLeft.x && ball.y < playerLeft.y + playerLeft.height) {
+    if(ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width){
       ball.spdX = -ball.spdX;
       console.log('collision!');
     } else {
@@ -225,8 +227,8 @@ var updateBallPosition = function() {
       document.location.reload();
     }
   }
-  else if (ball.x + ball.spdX > WIDTH - ball.ballSize){
-    if(ball.y > playerRight.y && ball.y < playerRight.y + playerRight.height) {
+  if(ball.x > WIDTH - ball.ballSize){
+    if(ball.y > playerRight.y - (playerRight.height / 2) && ball.y < playerRight.y + (playerRight.height / 2) && ball.x < playerRight.x + playerRight.width){
       ball.spdX = -ball.spdX;
       console.log('collision!');
     } else {
@@ -234,9 +236,8 @@ var updateBallPosition = function() {
       // document.location.reload();
     }
   }
-
-  if(ball.y + ball.spdY < ball.ballSize) {
-    if(ball.x > playerTop.x && ball.x < playerTop.x + playerTop.width) {
+  if(ball.y < ball.ballSize) {
+    if(ball.x > playerTop.x - (playerTop.width / 2) && ball.x < playerTop.x + (playerTop.width / 2) && ball.y < playerTop.y + playerTop.height){
       ball.spdY = -ball.spdY;
       console.log('collision!');
     } else {
@@ -244,8 +245,8 @@ var updateBallPosition = function() {
       // document.location.reload();
     }
   }
-  else if (ball.y + ball.spdY > HEIGHT - ball.ballSize){
-    if(ball.x > playerBottom.x && ball.x < playerBottom.x + playerBottom.width) {
+  if(ball.y > HEIGHT - ball.ballSize){
+    if(ball.x > playerBottom.x - (playerBottom.width / 2) && ball.x < playerBottom.x + (playerBottom.width / 2) && ball.y > playerBottom.y - playerBottom.height){
       ball.spdY = -ball.spdY;
       console.log('collision!');
     } else {
