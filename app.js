@@ -9,6 +9,7 @@ var NUMBLOCKS = 100;
 var block = [];
 var points = 0;
 var lives = 3;
+var mouseOn;
 //var userName = prompt( 'Hey! What\'s your name');
 //var userData = JSON.stringify(userName);
 
@@ -76,34 +77,10 @@ var Blocks = function(x, y){
 };
 
 var generateBlocks = function(){
-//  for (var b = 0; b < NUMBLOCKS; b++){
-  // var x = Math.floor((Math.random() * 500) + 100);
-  // var y = Math.floor((Math.random() * 500) + 100);
-  // // check to see if candidate new block is close to existing Blocks
-  // // for loop through all existing blocks.  Loop should not run the first time, when block[] is empty
-  // // b will advance even if a block is too close, leaving less than NUMBLOCKS blocks
-  // if (block.length > 0){
-  //   for (var prob = 0; prob < block.length; prob++){
-  //     console.log('Inside of for prob: prob, block.length, x = ',prob, block.length, x);
-  //     if (Math.abs(x - block[prob].x) > 100 && Math.abs(y - block[prob].y) > 100){
-  //       block [b] = new Blocks(x, y);
-  //     }
-  //     else {
-  //       block [b] = new Blocks(x, y);
-  //       console.log('blocks were too close');
-  //     } // end if
-  //   } // next prob
-  // } // end if block.length
-  // else { // create first block to get the ball rolling
-  //
-  //   //console.log('created first block');
-  // }
-  //} // next b
   var count = 0;
   for (var i = 100; i < 600; i = i + 30){
     for (var j = 100; j < 600; j = j + 30){
       if ((Math.floor(Math.random() * 10) < 5)){
-        console.log('New block at ', i, j);
         block [count] = new Blocks(i, j);
         count++;
       } // end if
@@ -158,6 +135,35 @@ var updateCollisionBlock = function(){
       points++;
       console.log(points);
     }
+  }
+};
+
+(function(){
+  var form, options;
+  form = document.getElementById('mouse-option');
+  options = form.elements.mouseOp;
+  for (var i = [0]; i < options.length; i++){
+    addEvent(options[i], 'click', radioChanged);
+  }
+  function radioChanged(){
+    hide = other.checked ? '' : hide;
+    otherText.value = '';
+  }
+});
+var form = document.getElementById('mouse-option');
+var offButton = document.getElementById('off');
+
+document.onmousemove = function(mouse){
+  offButton.blur();
+  if (mouseOn == 'on'){
+
+    var mouseX = mouse.clientX;
+    var mouseY = mouse.clientY;
+
+    playerTop.x = mouseX;
+    playerBottom.x = mouseX;
+    playerRight.y = mouseY;
+    playerLeft.y = mouseY;
   }
 };
 
@@ -298,6 +304,8 @@ var update = function(){
   drawBall();
   drawBlocks();
   updateCollisionBlock();
+  //console.log('form.element.mouseOp =', form.elements.mouseOp);
+  mouseOn = form.elements.mouseOp.value;
 };
 
 //window.localStorage.clear();
