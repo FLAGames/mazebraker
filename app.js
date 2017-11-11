@@ -131,6 +131,11 @@ var updateCollisionBlock = function(){
 //right arrow	39
 //down arrow	40
 
+var userName = prompt( 'Hey! What\'s your name');
+var userData = JSON.stringify(userName);
+window.localStorage.clear();
+window.localStorage.setItem('User data', userData);
+
 document.onkeydown = function(event){
   if(event.keyCode === 68 || event.keyCode === 39){ //d or Right arrow
     playerBottom.pressingRight = true;
@@ -227,7 +232,7 @@ var updateBallPosition = function() {
       console.log('collision!');
     } else {
       console.log('GAME OVER');
-      document.location.reload();
+      // document.location.reload();
     }
   }
 
@@ -237,7 +242,7 @@ var updateBallPosition = function() {
       console.log('collision!');
     } else {
       console.log('GAME OVER');
-      document.location.reload();
+      // document.location.reload();
     }
   }
   else if (ball.y + ball.spdY > HEIGHT - ball.ballSize){
@@ -246,7 +251,7 @@ var updateBallPosition = function() {
       console.log('collision!');
     } else {
       console.log('GAME OVER');
-      document.location.reload();
+      // document.location.reload();
     }
   }
   ball.x += ball.spdX;
