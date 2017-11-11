@@ -5,6 +5,7 @@ ctx.font = '30px Arial';
 
 var HEIGHT = 700;
 var WIDTH = 700;
+var NUMBLOCKS = 35;
 var block = [];
 
 var playerTop = {
@@ -93,7 +94,7 @@ var Blocks = function(blockX, blockY){
 };
 
 var generateBlocks = function(){
-  for (var b = 0; b < 10; b++){
+  for (var b = 0; b < NUMBLOCKS; b++){
     var blockX = Math.floor((Math.random() * 250) + 225);
     var blockY = Math.floor((Math.random() * 250) + 225);
     block [b] = new Blocks(blockX, blockY);
@@ -102,13 +103,39 @@ var generateBlocks = function(){
 generateBlocks();
 
 var drawBlocks = function(){
-  for (var b = 0; b < 10; b++){
+  for (var b = 0; b < block.length; b++){
     ctx.fillStyle = 'white';
     ctx.fillRect(block[b].blockX, block[b].blockY, 10, 10);
     //console.log('New Blocks at ', block[b].blockX, block[b].blockY);
   }
 };
-
+// Provisional ball/brick colision detection:
+// var getDistanceBetweenEntity = function (entity1,entity2){ //return distance (number)
+//   var vx = entity1.x - entity2.x;
+//   var vy = entity1.y - entity2.y;
+//   return Math.sqrt(vx * vx + vy * vy);
+// };
+//
+// var testCollisionEntity = function (entity1,entity2){ //return if colliding (true/false)
+//   var distance = getDistanceBetweenEntity(entity1,entity2);
+//   return distance < 30;
+// };
+// var updateCollisionBlock = function(){
+//   for(var key in block.length){
+//     var isColliding = testCollisionEntity(ball,block[key]);
+//     if(isColliding){
+//       // Add code for redirecting ball direction
+//
+//       //player.hp = player.hp - 1;
+//       // In our code, remove block[key]
+//       // To do this, block[key] = block[key+1], block[key+1] = block[key+2], etc. then  block.pop()
+//       for (var r = key; key < block.length; key++){
+//         block[r] = block[r + 1];
+//       }
+//       block.pop();
+//     }
+//   }
+// };
 //left arrow	37.
 //up arrow	38
 //right arrow	39
