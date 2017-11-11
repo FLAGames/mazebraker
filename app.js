@@ -1,10 +1,11 @@
-//'use strict';
+'use strict';
 
 var ctx = document.getElementById('ctx').getContext('2d');
 ctx.font = '30px Arial';
 
 var HEIGHT = 700;
 var WIDTH = 700;
+var block = [];
 
 var playerTop = {
   x:350,
@@ -55,12 +56,12 @@ var ball = {
   color:'#3498db',
 };
 
-updateEntity = function (something){
+var updateEntity = function (something){
   updateEntityPosition(something);
   drawEntity(something);
 };
 
-updateEntityPosition = function(something){
+var updateEntityPosition = function(something){
   something.x += something.spdX;
   something.y += something.spdY;
   if(something.x < 0 || something.x > WIDTH){
@@ -71,19 +72,41 @@ updateEntityPosition = function(something){
   }
 };
 
-drawEntity = function(something){
+var drawEntity = function(something){
   ctx.save();
   ctx.fillStyle = something.color;
   ctx.fillRect(something.x - something.width / 2,something.y - something.height / 2,something.width,something.height);
   ctx.restore();
 };
 
-drawBall = function() {
+var drawBall = function() {
   ctx.beginPath();
   ctx.arc(ball.x, ball.y, ball.ballSize, 0, Math.PI * 2);
   ctx.fillStyle = '#3498db';
   ctx.fill();
   ctx.closePath();
+};
+//Create Blocks
+var Blocks = function(blockX, blockY){
+  this.blockX = blockX;
+  this.blockY = blockY;
+};
+
+var generateBlocks = function(){
+  for (var b = 0; b < 10; b++){
+    var blockX = Math.floor((Math.random() * 250) + 225);
+    var blockY = Math.floor((Math.random() * 250) + 225);
+    block [b] = new Blocks(blockX, blockY);
+  }
+};
+generateBlocks();
+
+var drawBlocks = function(){
+  for (var b = 0; b < 10; b++){
+    ctx.fillStyle = 'white';
+    ctx.fillRect(block[b].blockX, block[b].blockY, 10, 10);
+    //console.log('New Blocks at ', block[b].blockX, block[b].blockY);
+  }
 };
 
 document.onkeydown = function(event){
@@ -118,7 +141,7 @@ document.onkeyup = function(event){
   }
 };
 
-updatePlayerBottomPosition = function(){
+var updatePlayerBottomPosition = function(){
   if(playerBottom.pressingRight)
     playerBottom.x += 10;
   if(playerBottom.pressingLeft)
@@ -130,7 +153,7 @@ updatePlayerBottomPosition = function(){
     playerBottom.x = WIDTH - playerBottom.width / 2;
 };
 
-updatePlayerTopPosition = function(){
+var updatePlayerTopPosition = function(){
   if(playerTop.pressingRight)
     playerTop.x += 10;
   if(playerTop.pressingLeft)
@@ -142,7 +165,7 @@ updatePlayerTopPosition = function(){
     playerTop.x = WIDTH - playerTop.width / 2;
 };
 
-updatePlayerLeftPosition = function(){
+var updatePlayerLeftPosition = function(){
   if(playerLeft.pressingDown)
     playerLeft.y += 10;
   if(playerLeft.pressingUp)
@@ -154,7 +177,7 @@ updatePlayerLeftPosition = function(){
     playerLeft.y = HEIGHT - playerLeft.height / 2;
 };
 
-updatePlayerRightPosition = function(){
+var updatePlayerRightPosition = function(){
   if(playerRight.pressingDown)
     playerRight.y += 10;
   if(playerRight.pressingUp)
@@ -166,7 +189,7 @@ updatePlayerRightPosition = function(){
     playerRight.y = HEIGHT - playerRight.height / 2;
 };
 
-updateBallPosition = function(){
+var updateBallPosition = function(){
   if(ball.x + ball.spdX > WIDTH - ball.ballSize || ball.x + ball.spdX < ball.ballSize) {
     ball.spdX = -ball.spdX;
   }
@@ -177,7 +200,7 @@ updateBallPosition = function(){
   ball.y += ball.spdY;
 };
 
-update = function(){
+var update = function(){
   ctx.clearRect(0,0,WIDTH,HEIGHT);
   updatePlayerTopPosition();
   drawEntity(playerTop);
@@ -193,26 +216,3 @@ update = function(){
 };
 
 setInterval(update,40);
-
-function Blocks(blockX, blockY){
-  this.blockX = blockX;
-  this.blockY = blockY;
-}
-// Make Blocks
-function generateBlocks(){
-  block = [];
-  for (var b = 0; b < 10; b++){
-    var blockX = Math.floor((Math.random() * 250) + 225);
-    var blockY = Math.floor((Math.random() * 250) + 225);
-    block [b] = new Blocks(blockX, blockY);
-  }
-}
-generateBlocks();
-
-function drawBlocks(){
-  for (var b = 0; b < 10; b++){
-    ctx.fillStyle = 'white';
-    ctx.fillRect(block[b].blockX, block[b].blockY, 10, 10);
-    //console.log('New Blocks at ', block[b].blockX, block[b].blockY);
-  }
-}
