@@ -15,7 +15,7 @@ var playerTop = {
   spdY:10,
   width:60,
   height:10,
-  color:'green',
+  color:'#2ecc71',
 };
 
 var playerBottom = {
@@ -25,7 +25,7 @@ var playerBottom = {
   spdY:10,
   width:60,
   height:10,
-  color:'green',
+  color:'#2ecc71',
 };
 
 var playerLeft = {
@@ -35,7 +35,7 @@ var playerLeft = {
   spdY:10,
   width:10,
   height:60,
-  color:'green',
+  color:'#2ecc71',
 };
 
 var playerRight = {
@@ -45,7 +45,7 @@ var playerRight = {
   spdY:10,
   width:10,
   height:60,
-  color:'green',
+  color:'#2ecc71',
 };
 
 var ball = {
@@ -221,12 +221,43 @@ var updatePlayerRightPosition = function(){
     playerRight.y = HEIGHT - playerRight.height / 2;
 };
 
-var updateBallPosition = function(){
-  if(ball.x + ball.spdX > WIDTH - ball.ballSize || ball.x + ball.spdX < ball.ballSize) {
-    ball.spdX = -ball.spdX;
+var updateBallPosition = function() {
+  if(ball.x + ball.spdx < ball.ballSize) {
+    if(ball.y > playerLeft.y && ball.y < playerLeft.y + playerLeft.height) {
+      ball.spdX = -ball.spdX;
+      console.log('collision!');
+    } else {
+      console.log('GAME OVER');
+      document.location.reload();
+    }
   }
-  if(ball.y + ball.spdY > HEIGHT - ball.ballSize || ball.y + ball.spdY < ball.ballSize) {
-    ball.spdY = -ball.spdY;
+  else if (ball.x + ball.spdX > WIDTH - ball.ballSize){
+    if(ball.y > playerRight.y && ball.y < playerRight.y + playerRight.height) {
+      ball.spdX = -ball.spdX;
+      console.log('collision!');
+    } else {
+      console.log('GAME OVER');
+      document.location.reload();
+    }
+  }
+
+  if(ball.y + ball.spdY < ball.ballSize) {
+    if(ball.x > playerTop.x && ball.x < playerTop.x + playerTop.width) {
+      ball.spdY = -ball.spdY;
+      console.log('collision!');
+    } else {
+      console.log('GAME OVER');
+      document.location.reload();
+    }
+  }
+  else if (ball.y + ball.spdY > HEIGHT - ball.ballSize){
+    if(ball.x > playerBottom.x && ball.x < playerBottom.x + playerBottom.width) {
+      ball.spdY = -ball.spdY;
+      console.log('collision!');
+    } else {
+      console.log('GAME OVER');
+      document.location.reload();
+    }
   }
   ball.x += ball.spdX;
   ball.y += ball.spdY;
