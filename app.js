@@ -8,52 +8,28 @@ var WIDTH = 700;
 var NUMBLOCKS = 35;
 var block = [];
 
-var playerTop = {
-  x:350,
-  y:5,
-  spdX:30,
-  spdY:10,
-  width:60,
-  height:10,
-  color:'#2ecc71',
-};
+// Constructor for paddles 
+function Paddle(x, y, spdX, spdY, width, height, color) {
+  this.x = x;
+  this.y = y;
+  this.spdX = spdX;
+  this.sdpY = spdY;
+  this.width = width;
+  this.height = height;
+  this.color = color;
+}
 
-var playerBottom = {
-  x:350,
-  y:695,
-  spdX:30,
-  spdY:10,
-  width:60,
-  height:10,
-  color:'#2ecc71',
-};
-
-var playerLeft = {
-  x:5,
-  y:350,
-  spdX:30,
-  spdY:10,
-  width:10,
-  height:60,
-  color:'#2ecc71',
-};
-
-var playerRight = {
-  x:695,
-  y:350,
-  spdX:30,
-  spdY:10,
-  width:10,
-  height:60,
-  color:'#2ecc71',
-};
+var playerTop = new Paddle(350, 5, 30, 10, 60, 10, '#2ecc71');
+var playerBottom = new Paddle(350, 695, 30, 10, 60, 10, '#2ecc71');
+var playerLeft = new Paddle(5, 350, 30, 10, 10, 60, '#2ecc71');
+var playerRight = new Paddle(695, 350, 30, 10, 10, 60, '#2ecc71');
 
 var ball = {
-  x:100,
-  y:200,
-  spdX:4,
-  spdY:-4,
-  ballSize:10,
+  x: 100,
+  y: 200,
+  spdX: 4,
+  spdY: -4,
+  ballSize: 10,
   color:'#3498db',
 };
 
