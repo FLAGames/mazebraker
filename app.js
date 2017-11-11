@@ -7,6 +7,10 @@ var HEIGHT = 700;
 var WIDTH = 700;
 var NUMBLOCKS = 100;
 var block = [];
+var points = 0;
+var lives = 3;
+//var userName = prompt( 'Hey! What\'s your name');
+//var userData = JSON.stringify(userName);
 
 // Constructor for paddles
 function Paddle(x, y, spdX, spdY, width, height, color) {
@@ -122,19 +126,12 @@ var updateCollisionBlock = function(){
         block[r] = block[r + 1];
       }
       block.pop();
-      console.log('after block.pop(): key, block.length, ',key, block.length);
+      //console.log('after block.pop(): key, block.length, ',key, block.length);
+      points++;
+      console.log(points);
     }
   }
 };
-//left arrow	37.
-//up arrow	38
-//right arrow	39
-//down arrow	40
-
-var userName = prompt( 'Hey! What\'s your name');
-var userData = JSON.stringify(userName);
-window.localStorage.clear();
-window.localStorage.setItem('User data', userData);
 
 document.onkeydown = function(event){
   if(event.keyCode === 68 || event.keyCode === 39){ //d or Right arrow
@@ -221,7 +218,7 @@ var updateBallPosition = function() {
     //if(ball.y > playerLeft.x && ball.y < playerLeft.y + playerLeft.height) {
     if(ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width){
       ball.spdX = -ball.spdX;
-      console.log('collision!');
+      console.log('bounce!');
     } else {
       console.log('GAME OVER');
       document.location.reload();
@@ -230,28 +227,28 @@ var updateBallPosition = function() {
   if(ball.x > WIDTH - ball.ballSize){
     if(ball.y > playerRight.y - (playerRight.height / 2) && ball.y < playerRight.y + (playerRight.height / 2) && ball.x < playerRight.x + playerRight.width){
       ball.spdX = -ball.spdX;
-      console.log('collision!');
+      console.log('bounce!');
     } else {
       console.log('GAME OVER');
-      // document.location.reload();
+      document.location.reload();
     }
   }
   if(ball.y < ball.ballSize) {
     if(ball.x > playerTop.x - (playerTop.width / 2) && ball.x < playerTop.x + (playerTop.width / 2) && ball.y < playerTop.y + playerTop.height){
       ball.spdY = -ball.spdY;
-      console.log('collision!');
+      console.log('bounce!');
     } else {
       console.log('GAME OVER');
-      // document.location.reload();
+      document.location.reload();
     }
   }
   if(ball.y > HEIGHT - ball.ballSize){
     if(ball.x > playerBottom.x - (playerBottom.width / 2) && ball.x < playerBottom.x + (playerBottom.width / 2) && ball.y > playerBottom.y - playerBottom.height){
       ball.spdY = -ball.spdY;
-      console.log('collision!');
+      console.log('bounce!');
     } else {
       console.log('GAME OVER');
-      // document.location.reload();
+      document.location.reload();
     }
   }
   ball.x += ball.spdX;
@@ -260,6 +257,7 @@ var updateBallPosition = function() {
 
 var update = function(){
   ctx.clearRect(0,0,WIDTH,HEIGHT);
+  ctx.fillText(points + ' Points',0,30);
   updatePlayerTopPosition();
   drawEntity(playerTop);
   updatePlayerBottomPosition();
@@ -274,4 +272,6 @@ var update = function(){
   updateCollisionBlock();
 };
 
+//window.localStorage.clear();
+//window.localStorage.setItem('User data', userData);
 setInterval(update,40);
