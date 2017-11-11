@@ -73,8 +73,8 @@ var Blocks = function(x, y){
 
 var generateBlocks = function(){
   for (var b = 0; b < NUMBLOCKS; b++){
-    var x = Math.floor((Math.random() * 700) + 0);
-    var y = Math.floor((Math.random() * 700) + 0);
+    var x = Math.floor((Math.random() * 500) + 100);
+    var y = Math.floor((Math.random() * 500) + 100);
     block [b] = new Blocks(x, y);
   }
 };
@@ -84,7 +84,6 @@ var drawBlocks = function(){
   for (var b = 0; b < block.length; b++){
     ctx.fillStyle = 'white';
     ctx.fillRect(block[b].x, block[b].y, 15, 15);
-    //console.log('New Blocks at ', block[b].blockX, block[b].blockY);
   }
 };
 // Provisional ball/brick colision detection:
