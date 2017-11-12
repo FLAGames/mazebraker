@@ -9,8 +9,8 @@ var NUMBLOCKS = 100;
 var block = [];
 var points = 0;
 var lives = 3;
-//var userName = prompt( 'Hey! What\'s your name');
-//var userData = JSON.stringify(userName);
+var userName = prompt( 'Hey! What\'s your name');
+var userScores = [];
 
 // Constructor for paddles
 function Paddle(x, y, spdX, spdY, width, height, color) {
@@ -33,7 +33,6 @@ function Ball(id, x, y, spdX, spdY) {
 };
 
 var ball = new Ball(1, 100, 200, 4, -4);
-
 var playerTop = new Paddle(350, 5, 30, 10, 60, 10, '#2ecc71');
 var playerBottom = new Paddle(350, 695, 30, 10, 60, 10, '#2ecc71');
 var playerLeft = new Paddle(5, 350, 30, 10, 10, 60, '#2ecc71');
@@ -69,6 +68,7 @@ var drawBall = function() {
   ctx.fill();
   ctx.closePath();
 };
+
 //Create Blocks
 var Blocks = function(x, y) {
   this.x = x;
@@ -241,6 +241,11 @@ var updatePlayerRightPosition = function() {
 };
 
 var updateBallPosition = function() {
+  if (!lives) {
+    setScore();
+    lives = 3;
+    document.location.reload();
+  }
   if (ball.x < ball.ballSize) {
     //if(ball.y > playerLeft.x && ball.y < playerLeft.y + playerLeft.height) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
@@ -252,10 +257,6 @@ var updateBallPosition = function() {
       ball.y = HEIGHT - 30;
       ball.spdX = 4;
       ball.spdY = -4;
-      if (!lives) {
-        alert("GAME OVER");
-        document.location.reload();
-      }
     }
   }
   if (ball.x > WIDTH - ball.ballSize) {
@@ -268,10 +269,6 @@ var updateBallPosition = function() {
       ball.y = HEIGHT - 30;
       ball.spdX = 4;
       ball.spdY = -4;
-      if (!lives) {
-        alert('GAME OVER');
-        document.location.reload();
-      }
     }
   }
   if (ball.y < ball.ballSize) {
@@ -284,10 +281,6 @@ var updateBallPosition = function() {
       ball.y = HEIGHT - 30;
       ball.spdX = 4;
       ball.spdY = -4;
-      if (!lives) {
-        alert('GAME OVER');
-        document.location.reload();
-      }
     }
   }
   if (ball.y > HEIGHT - ball.ballSize) {
@@ -300,22 +293,40 @@ var updateBallPosition = function() {
       ball.y = HEIGHT - 30;
       ball.spdX = 4;
       ball.spdY = -4;
-      if (!lives) {
-        alert('GAME OVER');
-        document.location.reload();
-      }
     }
   }
   ball.x += ball.spdX;
   ball.y += ball.spdY;
 };
-function drawLives() {
-  ctx.fillText(lives + ' lives', 600, 30);
+
+// function drawLives() {
+//   ctx.fillText(lives + ' lives', 600, 30);
+// }
+
+function setScore() {
+  userScores = JSON.parse(window.localStorage.getItem('User Data')) || [];
+  var userScore = {
+    'user name': userName,
+    'score': points
+  };
+
+  var existingUser = userScores.findIndex(function(element) {
+    return element['user name'] === userName;
+  });
+
+  if(existingUser === -1) {
+    userScores.push(userScore);
+  } else {
+    userScores[existingUser]['score'] = points;
+  }
+
+  window.localStorage.setItem('User Data', JSON.stringify(userScores));
 }
 
 var update = function() {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
   ctx.fillText(points + ' Points', 0, 30);
+  ctx.fillText(lives + ' lives', 600, 30);
   updatePlayerTopPosition();
   drawEntity(playerTop);
   updatePlayerBottomPosition();
@@ -326,11 +337,8 @@ var update = function() {
   drawEntity(playerRight);
   updateBallPosition();
   drawBall();
-  drawLives();
   drawBlocks();
   updateCollisionBlock();
 };
 
-//window.localStorage.clear();
-//window.localStorage.setItem('User data', userData);
 setInterval(update, 40);
