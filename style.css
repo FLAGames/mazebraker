@@ -1,6 +1,62 @@
 #ctx {
   background-color: #2c3e50;
+  font-family: 'Press Start 2p';
 }
 *{
-  font-size: 24px
+  font-family: 'Press Start 2p';
+  box-sizing: border-box;
+  font-size: 14px;
+}
+clearfix {
+  content: '';
+  display: block;
+  clear: both;
+}
+body {
+  background-color: #bdc3c7;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+#score-board {
+  float: right;
+  max-width: 35%;
+}
+#score-title {
+  text-align: center;
+}
+.score-head {
+  float: left;
+  padding: 15px;
+  background-color: #3498db;
+  width: 50%;
+  color: white;
+}
+.score-head:first-child {
+  border-right: 1px solid;
+}
+
+#player-column,
+#score-column {
+  float: left;
+  width: 50%;
+}
+.player-score,
+.player-name {
+  padding: 15px;
+  background-color: #34495e;
+  color: white;
+  border-bottom: 1px solid;
+  min-height: 45px;
+}
+
+.player-score:last-child,
+.player-name:last-child {
+  border-bottom: 0;
+}
+
+.player-name {
+  border-right: 1px solid;
 }

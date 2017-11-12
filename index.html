@@ -3,22 +3,29 @@
   <head>
     <meta charset="utf-8">
     <title>Maze Breaker</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css" />
-
   </head>
   <body>
-    <canvas id="ctx" width="700" height="700" style="border:1px solid #000000;"></canvas>
-    <div id="score-board">
-      <h2 id="score-title">Score Board</h2>
-      <ul id="score-list"></ul>
-    </div>
-      <p>Uses keyboard AWSD or arrow keys to move the paddles.</p>
-      <form id="mouse-option" action="/mouseOp" method = "post">
-        <input type="radio" name="mouseOp" value="on" id="on" checked="checked" />
-        <label for="on">Mouse control on</label><br>
-        <input type="radio" name="mouseOp" value="off" id="off" />
-        <label for="off">Mouse control off</label><br>
-      </form>
+    <div class="wrapper">
+      <canvas id="ctx" width="700" height="700" style="border:1px solid #000000;"></canvas>
+      <div id="score-board" class="clearfix">
+        <h2 id="score-title">High Scores</h2>
+        <div id="score-list">
+          <div class="score-head">Player Name</div>
+          <div class="score-head">Player Score</div>
+          <div id="player-column"></div>
+          <div id="score-column" class="sore-head"></div>
+        </div>
+      </div>
+        <p>Uses keyboard AWSD or arrow keys to move the paddles.</p>
+        <form id="mouse-option" action="/mouseOp" method = "post">
+          <input type="radio" name="mouseOp" value="on" id="on" checked="checked" />
+          <label for="on">Mouse control on</label><br>
+          <input type="radio" name="mouseOp" value="off" id="off" />
+          <label for="off">Mouse control off</label><br>
+        </form>
+      </div>
       <script type="text/JavaScript" src="app.js"></script>
   </body>
 </html>

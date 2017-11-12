@@ -1,7 +1,7 @@
 'use strict';
 
 var ctx = document.getElementById('ctx').getContext('2d');
-ctx.font = '30px Arial';
+ctx.font = '15px "Press Start 2p"';
 
 var HEIGHT = 700;
 var WIDTH = 700;
@@ -9,7 +9,7 @@ var NUMBLOCKS = 100;
 var block = [];
 var points = 0;
 var lives = 3;
-var userName = prompt( 'Hey! What\'s your name');
+var userName = prompt('Hey! What\'s your name');
 var userScores = [];
 var mouseOn;
 
@@ -30,14 +30,14 @@ function Ball(id, x, y, spdX, spdY) {
   this.spdX = spdX;
   this.spdY = spdY;
   this.ballSize = 10;
-  this.color = '#3498db';
+  this.color = '#DB544A';
 };
 
 var ball = new Ball(1, 100, 200, 4, -4);
-var playerTop = new Paddle(350, 5, 30, 10, 60, 10, '#2ecc71');
-var playerBottom = new Paddle(350, 695, 30, 10, 60, 10, '#2ecc71');
-var playerLeft = new Paddle(5, 350, 30, 10, 10, 60, '#2ecc71');
-var playerRight = new Paddle(695, 350, 30, 10, 10, 60, '#2ecc71');
+var playerTop = new Paddle(350, 5, 30, 10, 60, 10, '#3498db');
+var playerBottom = new Paddle(350, 695, 30, 10, 60, 10, '#3498db');
+var playerLeft = new Paddle(5, 350, 30, 10, 10, 60, '#3498db');
+var playerRight = new Paddle(695, 350, 30, 10, 10, 60, '#3498db');
 
 var updateEntity = function(something) {
   updateEntityPosition(something);
@@ -76,12 +76,12 @@ var Blocks = function(x, y) {
   this.y = y;
 };
 
-var generateBlocks = function(){
+var generateBlocks = function() {
   var count = 0;
-  for (var i = 100; i < 600; i = i + 30){
-    for (var j = 100; j < 600; j = j + 30){
-      if ((Math.floor(Math.random() * 10) < 5)){
-        block [count] = new Blocks(i, j);
+  for (var i = 100; i < 600; i = i + 30) {
+    for (var j = 100; j < 600; j = j + 30) {
+      if ((Math.floor(Math.random() * 10) < 5)) {
+        block[count] = new Blocks(i, j);
         count++;
       } // end if
     } // next j
@@ -91,7 +91,7 @@ generateBlocks();
 
 var drawBlocks = function() {
   for (var b = 0; b < block.length; b++) {
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = '#e74c3c';
     ctx.fillRect(block[b].x, block[b].y, 20, 20);
   }
 };
@@ -137,14 +137,15 @@ var updateCollisionBlock = function() {
   }
 };
 
-(function(){
+(function() {
   var form, options;
   form = document.getElementById('mouse-option');
   options = form.elements.mouseOp;
-  for (var i = [0]; i < options.length; i++){
+  for (var i = [0]; i < options.length; i++) {
     addEvent(options[i], 'click', radioChanged);
   }
-  function radioChanged(){
+
+  function radioChanged() {
     hide = other.checked ? '' : hide;
     otherText.value = '';
   }
@@ -152,9 +153,9 @@ var updateCollisionBlock = function() {
 var form = document.getElementById('mouse-option');
 var offButton = document.getElementById('off');
 
-document.onmousemove = function(mouse){
+document.onmousemove = function(mouse) {
   offButton.blur();
-  if (mouseOn == 'on'){
+  if (mouseOn == 'on') {
 
     var mouseX = mouse.clientX;
     var mouseY = mouse.clientY;
@@ -166,8 +167,8 @@ document.onmousemove = function(mouse){
   }
 };
 
-document.onkeydown = function(event){
-  if(event.keyCode === 68 || event.keyCode === 39){ //d or Right arrow
+document.onkeydown = function(event) {
+  if (event.keyCode === 68 || event.keyCode === 39) { //d or Right arrow
     playerBottom.pressingRight = true;
     playerTop.pressingRight = true;
   } else if (event.keyCode === 83 || event.keyCode === 40) { //s or Down arrow
@@ -246,12 +247,58 @@ var updatePlayerRightPosition = function() {
     playerRight.y = HEIGHT - playerRight.height / 2;
 };
 
-var updateBallPosition = function() {
-  if (!lives) {
-    setScore();
-    lives = 3;
-    document.location.reload();
+function sortNumber(a, b) {
+  return b['score'] - a['score'];
+}
+
+function renderScore() {
+  userScores = JSON.parse(window.localStorage.getItem('User Data')) || [];
+  userScores.sort(sortNumber);
+  var playerColumn = document.getElementById('player-column');
+  var scoreColumn = document.getElementById('score-column');
+
+  for (var i = 0; i < userScores.length; i++) {
+    var playerName = document.createElement('div');
+    var playerScore = document.createElement('div');
+
+    playerName.className = 'player-name';
+    playerScore.className = 'player-score';
+
+    playerName.textContent = userScores[i]['user name'];
+    playerScore.textContent = userScores[i]['score'];
+    playerColumn.appendChild(playerName);
+    scoreColumn.appendChild(playerScore);
   }
+}
+renderScore();
+
+function setScore() {
+  userScores = JSON.parse(window.localStorage.getItem('User Data')) || [];
+  var userScore = {
+    'user name': userName,
+    'score': points
+  };
+
+  var existingUser = userScores.findIndex(function(element) {
+    return element['user name'] === userName;
+  });
+
+  if (existingUser === -1) {
+    userScores.push(userScore);
+  } else {
+    userScores[existingUser]['score'] = points;
+  }
+
+  renderScore();
+  window.localStorage.setItem('User Data', JSON.stringify(userScores));
+}
+
+var updateBallPosition = function() {
+  // if (!lives) {
+  //   setScore();
+  //   lives = 3;
+  //   document.location.reload();
+  // }
   if (ball.x < ball.ballSize) {
     //if(ball.y > playerLeft.x && ball.y < playerLeft.y + playerLeft.height) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
@@ -305,34 +352,10 @@ var updateBallPosition = function() {
   ball.y += ball.spdY;
 };
 
-// function drawLives() {
-//   ctx.fillText(lives + ' lives', 600, 30);
-// }
-
-function setScore() {
-  userScores = JSON.parse(window.localStorage.getItem('User Data')) || [];
-  var userScore = {
-    'user name': userName,
-    'score': points
-  };
-
-  var existingUser = userScores.findIndex(function(element) {
-    return element['user name'] === userName;
-  });
-
-  if(existingUser === -1) {
-    userScores.push(userScore);
-  } else {
-    userScores[existingUser]['score'] = points;
-  }
-
-  window.localStorage.setItem('User Data', JSON.stringify(userScores));
-}
-
 var update = function() {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  ctx.fillText(points + ' Points', 0, 30);
-  ctx.fillText(lives + ' lives', 600, 30);
+  ctx.fillText(points + ' Points', 5, 30);
+  ctx.fillText(lives + ' lives', 590, 30);
   updatePlayerTopPosition();
   drawEntity(playerTop);
   updatePlayerBottomPosition();
@@ -348,5 +371,4 @@ var update = function() {
   //console.log('form.element.mouseOp =', form.elements.mouseOp);
   mouseOn = form.elements.mouseOp.value;
 };
-
 setInterval(update, 40);
