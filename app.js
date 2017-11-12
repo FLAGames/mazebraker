@@ -33,11 +33,11 @@ function Ball(id, x, y, spdX, spdY) {
   this.color = '#DB544A';
 };
 
-var ball = new Ball(1, 100, 200, 4, -4);
-var playerTop = new Paddle(350, 5, 30, 10, 60, 10, '#3498db');
-var playerBottom = new Paddle(350, 695, 30, 10, 60, 10, '#3498db');
-var playerLeft = new Paddle(5, 350, 30, 10, 10, 60, '#3498db');
-var playerRight = new Paddle(695, 350, 30, 10, 10, 60, '#3498db');
+var ball = new Ball(1, WIDTH / 2, HEIGHT - 30, 4, -4);
+var playerTop = new Paddle(350, 5, 30, 10, 60, 10, '#2ecc71');
+var playerBottom = new Paddle(350, 695, 30, 10, 60, 10, '#2ecc71');
+var playerLeft = new Paddle(5, 350, 30, 10, 10, 60, '#2ecc71');
+var playerRight = new Paddle(695, 350, 30, 10, 10, 60, '#2ecc71');
 
 var updateEntity = function(something) {
   updateEntityPosition(something);
@@ -71,17 +71,19 @@ var drawBall = function() {
 };
 
 //Create Blocks
-var Blocks = function(x, y) {
+var Blocks = function(x, y, width, height) {
   this.x = x;
   this.y = y;
+  this.width = width;
+  this.height = height;
 };
 
 var generateBlocks = function() {
   var count = 0;
-  for (var i = 100; i < 600; i = i + 30) {
-    for (var j = 100; j < 600; j = j + 30) {
-      if ((Math.floor(Math.random() * 10) < 5)) {
-        block[count] = new Blocks(i, j);
+  for (var i = 100; i < 600; i += 30){
+    for (var j = 100; j < 600; j += 30){
+      if ((Math.floor(Math.random() * 10) < 5)){
+        block [count] = new Blocks(i, j, 20, 20);
         count++;
       } // end if
     } // next j
@@ -91,12 +93,12 @@ generateBlocks();
 
 var drawBlocks = function() {
   for (var b = 0; b < block.length; b++) {
-    ctx.fillStyle = '#e74c3c';
-    ctx.fillRect(block[b].x, block[b].y, 20, 20);
+    ctx.fillStyle = 'white';
+    ctx.fillRect(block[b].x - block[b].width / 2, block[b].y - block[b].height / 2, block[b].width, block[b].height);
   }
 };
 
-// Provisional ball/brick colision detection:
+// ball/brick colision detection:
 var getDistanceBetweenEntity = function(entity1, entity2) { //return distance (number)
   var vx = entity1.x - entity2.x;
   var vy = entity1.y - entity2.y;
@@ -105,13 +107,12 @@ var getDistanceBetweenEntity = function(entity1, entity2) { //return distance (n
 
 var testCollisionEntity = function(entity1, entity2) { //return if colliding (true/false)
   var distance = getDistanceBetweenEntity(entity1, entity2);
-  return distance < 15;
+  return distance < 20;
 };
 
 var updateCollisionBlock = function() {
   for (var key = 0; key < block.length; key++) {
     var isColliding = testCollisionEntity(ball, block[key]);
-    //console.log('key, isColliding =', key, isColliding);
     if (isColliding) {
       // Ccode for redirecting ball direction
       // Ball needs to bounce in a logical way off blocks.  If ball is approaching from side, reverse ball.spdX. If ball is approaching from top or bottom, reverse ball.spdY
@@ -130,7 +131,6 @@ var updateCollisionBlock = function() {
         block[r] = block[r + 1];
       }
       block.pop();
-      //console.log('after block.pop(): key, block.length, ',key, block.length);
       points++;
       console.log(points);
     }
@@ -310,6 +310,10 @@ var updateBallPosition = function() {
       ball.y = HEIGHT - 30;
       ball.spdX = 4;
       ball.spdY = -4;
+      if (!lives) {
+        alert('GAME OVER');
+        document.location.reload();
+      }
     }
   }
   if (ball.x > WIDTH - ball.ballSize) {
