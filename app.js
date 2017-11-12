@@ -33,7 +33,7 @@ function Ball(id, x, y, spdX, spdY) {
   this.color = '#3498db';
 };
 
-var ball = new Ball(1, 100, 200, 4, -4);
+var ball = new Ball(1, WIDTH / 2, HEIGHT - 30, 4, -4);
 var playerTop = new Paddle(350, 5, 30, 10, 60, 10, '#2ecc71');
 var playerBottom = new Paddle(350, 695, 30, 10, 60, 10, '#2ecc71');
 var playerLeft = new Paddle(5, 350, 30, 10, 10, 60, '#2ecc71');
@@ -107,7 +107,7 @@ var getDistanceBetweenEntity = function(entity1, entity2) { //return distance (n
 
 var testCollisionEntity = function(entity1, entity2) { //return if colliding (true/false)
   var distance = getDistanceBetweenEntity(entity1, entity2);
-  return distance < 15;
+  return distance < 20;
 };
 
 var updateCollisionBlock = function() {
