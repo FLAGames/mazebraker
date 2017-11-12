@@ -30,7 +30,6 @@ function Ball(id, x, y, spdX, spdY) {
   this.spdX = spdX;
   this.spdY = spdY;
   this.ballSize = 10;
-  this.color = '#DB544A';
 };
 
 var ball = new Ball(1, WIDTH / 2, HEIGHT - 30, 4, -4);
@@ -93,7 +92,7 @@ generateBlocks();
 
 var drawBlocks = function() {
   for (var b = 0; b < block.length; b++) {
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = '#3498db';
     ctx.fillRect(block[b].x - block[b].width / 2, block[b].y - block[b].height / 2, block[b].width, block[b].height);
   }
 };
@@ -294,26 +293,27 @@ function setScore() {
 }
 
 var updateBallPosition = function() {
-  // if (!lives) {
-  //   setScore();
-  //   lives = 3;
-  //   document.location.reload();
-  // }
+  var ballReset = function(){
+    ball.x = WIDTH / 2;
+    ball.y = HEIGHT - 30;
+    ball.spdX = 4;
+    ball.spdY = -4;
+  };
+
+  if (!lives) {
+    setScore();
+    alert('GAME OVER');
+    lives = 3;
+    document.location.reload();
+  }
+
   if (ball.x < ball.ballSize) {
-    //if(ball.y > playerLeft.x && ball.y < playerLeft.y + playerLeft.height) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
       ball.spdX = -ball.spdX;
       console.log('bounce!');
     } else {
       lives--;
-      ball.x = WIDTH / 2;
-      ball.y = HEIGHT - 30;
-      ball.spdX = 4;
-      ball.spdY = -4;
-      if (!lives) {
-        alert('GAME OVER');
-        document.location.reload();
-      }
+      ballReset();
     }
   }
   if (ball.x > WIDTH - ball.ballSize) {
@@ -322,10 +322,7 @@ var updateBallPosition = function() {
       console.log('bounce!');
     } else {
       lives--;
-      ball.x = WIDTH / 2;
-      ball.y = HEIGHT - 30;
-      ball.spdX = 4;
-      ball.spdY = -4;
+      ballReset();
     }
   }
   if (ball.y < ball.ballSize) {
@@ -334,10 +331,7 @@ var updateBallPosition = function() {
       console.log('bounce!');
     } else {
       lives--;
-      ball.x = WIDTH / 2;
-      ball.y = HEIGHT - 30;
-      ball.spdX = 4;
-      ball.spdY = -4;
+      ballReset();
     }
   }
   if (ball.y > HEIGHT - ball.ballSize) {
@@ -346,10 +340,7 @@ var updateBallPosition = function() {
       console.log('bounce!');
     } else {
       lives--;
-      ball.x = WIDTH / 2;
-      ball.y = HEIGHT - 30;
-      ball.spdX = 4;
-      ball.spdY = -4;
+      ballReset();
     }
   }
   ball.x += ball.spdX;
