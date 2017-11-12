@@ -13,6 +13,12 @@
       <ul id="score-list"></ul>
     </div>
       <p>Uses keyboard AWSD or arrow keys to move the paddles.</p>
+      <form id="mouse-option" action="/mouseOp" method = "post">
+        <input type="radio" name="mouseOp" value="on" id="on" checked="checked" />
+        <label for="on">Mouse control on</label><br>
+        <input type="radio" name="mouseOp" value="off" id="off" />
+        <label for="off">Mouse control off</label><br>
+      </form>
       <script type="text/JavaScript" src="app.js"></script>
   </body>
 </html>
