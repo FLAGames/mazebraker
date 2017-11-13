@@ -12,6 +12,8 @@ var lives = 3;
 var userName = prompt('Hey! What\'s your name');
 var userScores = [];
 var mouseOn;
+var padSpeed = 20;
+var ballSpeed = 4;
 
 // Constructor for paddles
 function Paddle(x, y, spdX, spdY, width, height, color) {
@@ -200,9 +202,9 @@ document.onkeyup = function(event) {
 
 var updatePlayerBottomPosition = function() {
   if (playerBottom.pressingRight)
-    playerBottom.x += 10;
+    playerBottom.x += padSpeed;
   if (playerBottom.pressingLeft)
-    playerBottom.x -= 10;
+    playerBottom.x -= padSpeed;
   //ispositionvalid
   if (playerBottom.x < playerBottom.width / 2)
     playerBottom.x = playerBottom.width / 2;
@@ -212,9 +214,9 @@ var updatePlayerBottomPosition = function() {
 
 var updatePlayerTopPosition = function() {
   if (playerTop.pressingRight)
-    playerTop.x += 10;
+    playerTop.x += padSpeed;
   if (playerTop.pressingLeft)
-    playerTop.x -= 10;
+    playerTop.x -= padSpeed;
   //ispositionvalid
   if (playerTop.x < playerTop.width / 2)
     playerTop.x = playerTop.width / 2;
@@ -224,9 +226,9 @@ var updatePlayerTopPosition = function() {
 
 var updatePlayerLeftPosition = function() {
   if (playerLeft.pressingDown)
-    playerLeft.y += 10;
+    playerLeft.y += padSpeed;
   if (playerLeft.pressingUp)
-    playerLeft.y -= 10;
+    playerLeft.y -= padSpeed;
   //ispositionvalid
   if (playerLeft.y < playerLeft.height / 2)
     playerLeft.y = playerLeft.height / 2;
@@ -236,9 +238,9 @@ var updatePlayerLeftPosition = function() {
 
 var updatePlayerRightPosition = function() {
   if (playerRight.pressingDown)
-    playerRight.y += 10;
+    playerRight.y += padSpeed;
   if (playerRight.pressingUp)
-    playerRight.y -= 10;
+    playerRight.y -= padSpeed;
   //ispositionvalid
   if (playerRight.y < playerRight.height / 2)
     playerRight.y = playerRight.height / 2;
@@ -296,8 +298,8 @@ var updateBallPosition = function() {
   var ballReset = function(){
     ball.x = WIDTH / 2;
     ball.y = HEIGHT - 30;
-    ball.spdX = 4;
-    ball.spdY = -4;
+    ball.spdX = ballSpeed;
+    ball.spdY = -ballSpeed;
   };
 
   if (!lives) {
