@@ -22,7 +22,7 @@ function Paddle(x, y, spdX, spdY, width, height, color) {
   this.width = width;
   this.height = height;
   this.color = color;
-}
+};
 
 function Ball(id, x, y, spdX, spdY) {
   this.x = x;
@@ -77,18 +77,18 @@ var Blocks = function(x, y, width, height) {
   this.height = height;
 };
 
-var generateBlocks = function() {
-  var count = 0;
-  for (var i = 100; i < 600; i += 30){
-    for (var j = 100; j < 600; j += 30){
-      if ((Math.floor(Math.random() * 10) < 5)){
-        block [count] = new Blocks(i, j, 20, 20);
-        count++;
-      } // end if
-    } // next j
-  } // next i
-};
-generateBlocks();
+// var generateBlocks = function() {
+//   var count = 0;
+//   for (var i = 100; i < 600; i += 30){
+//     for (var j = 100; j < 600; j += 30){
+//       if ((Math.floor(Math.random() * 10) < 5)){
+//         block [count] = new Blocks(i, j, 20, 20);
+//         count++;
+//       } // end if
+//     } // next j
+//   } // next i
+// };
+//generateBlocks();
 
 var drawBlocks = function() {
   for (var b = 0; b < block.length; b++) {
@@ -152,12 +152,21 @@ var updateCollisionBlock = function() {
 var form = document.getElementById('mouse-option');
 var offButton = document.getElementById('off');
 
+var getXY = function (x, y) {
+    var rect = ctx.getBoundingClientRect();  // absolute position of canvas
+    return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+    }
+};
+
 document.onmousemove = function(mouse) {
   offButton.blur();
   if (mouseOn == 'on') {
 
-    var mouseX = mouse.clientX;
-    var mouseY = mouse.clientY;
+//    var pos = getXY(ctx, event);
+    var mouseX = event.clientX;
+    var mouseY = event.clientY;
 
     playerTop.x = mouseX;
     playerBottom.x = mouseX;
