@@ -133,7 +133,6 @@ var updateCollisionBlock = function() {
       }
       block.pop();
       points++;
-      console.log(points);
     }
   }
 };
@@ -154,19 +153,19 @@ var updateCollisionBlock = function() {
 var form = document.getElementById('mouse-option');
 var offButton = document.getElementById('off');
 
-var getXY = function (x, y) {
-    var rect = ctx.getBoundingClientRect();  // absolute position of canvas
-    return {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-    }
+var getXY = function(x, y) {
+  var rect = ctx.getBoundingClientRect(); // absolute position of canvas
+  return {
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top
+  };
 };
 
 document.onmousemove = function(mouse) {
   offButton.blur();
   if (mouseOn == 'on') {
 
-//    var pos = getXY(ctx, event);
+    //    var pos = getXY(ctx, event);
     var mouseX = event.clientX;
     var mouseY = event.clientY;
 
@@ -293,18 +292,18 @@ function setScore() {
     return element['user name'] === userName;
   });
 
+  console.log(existingUser);
   if (existingUser === -1) {
     userScores.push(userScore);
-  } else {
+  } else if (points > userScores[existingUser]['score']) {
     userScores[existingUser]['score'] = points;
   }
 
-  renderScore();
   window.localStorage.setItem('User Data', JSON.stringify(userScores));
 }
 
 var updateBallPosition = function() {
-  var ballReset = function(){
+  var ballReset = function() {
     ball.x = WIDTH / 2;
     ball.y = HEIGHT - 30;
     ball.spdX = ballSpeed;
@@ -321,7 +320,6 @@ var updateBallPosition = function() {
   if (ball.x < ball.ballSize) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
       ball.spdX = -ball.spdX;
-      console.log('bounce!');
     } else {
       lives--;
       ballReset();
@@ -330,7 +328,6 @@ var updateBallPosition = function() {
   if (ball.x > WIDTH - ball.ballSize) {
     if (ball.y > playerRight.y - (playerRight.height / 2) && ball.y < playerRight.y + (playerRight.height / 2) && ball.x < playerRight.x + playerRight.width) {
       ball.spdX = -ball.spdX;
-      console.log('bounce!');
     } else {
       lives--;
       ballReset();
@@ -339,7 +336,6 @@ var updateBallPosition = function() {
   if (ball.y < ball.ballSize) {
     if (ball.x > playerTop.x - (playerTop.width / 2) && ball.x < playerTop.x + (playerTop.width / 2) && ball.y < playerTop.y + playerTop.height) {
       ball.spdY = -ball.spdY;
-      console.log('bounce!');
     } else {
       lives--;
       ballReset();
@@ -348,7 +344,6 @@ var updateBallPosition = function() {
   if (ball.y > HEIGHT - ball.ballSize) {
     if (ball.x > playerBottom.x - (playerBottom.width / 2) && ball.x < playerBottom.x + (playerBottom.width / 2) && ball.y > playerBottom.y - playerBottom.height) {
       ball.spdY = -ball.spdY;
-      console.log('bounce!');
     } else {
       lives--;
       ballReset();
