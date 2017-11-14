@@ -26,6 +26,22 @@ function Paddle(x, y, spdX, spdY, width, height, color) {
   this.color = color;
 };
 
+function Sound(src) {
+  this.sound = document.createElement('audio');
+  this.sound.src = src;
+  this.sound.setAttribute('preload', 'auto');
+  this.sound.setAttribute('controls', 'none');
+  this.sound.style.display = 'none';
+  document.body.appendChild(this.sound);
+  this.play = function() {
+    this.sound.play();
+  };
+  this.stop = function() {
+    this.sound.pause();
+  };
+}
+var hitSound = new Sound('assets/audio/hitsound.wav');
+
 function Ball(id, x, y, spdX, spdY) {
   this.x = x;
   this.y = y;
@@ -132,6 +148,7 @@ var updateCollisionBlock = function() {
         block[r] = block[r + 1];
       }
       block.pop();
+      hitSound.play();
       points++;
     }
   }
@@ -153,7 +170,7 @@ var updateCollisionBlock = function() {
 var form = document.getElementById('mouse-option');
 var offButton = document.getElementById('off');
 
-var getXY = function () {
+var getXY = function() {
   var canvas = document.getElementById('ctx');
   var rect = canvas.getBoundingClientRect(); //absolute position of canvas
   return {
