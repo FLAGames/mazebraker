@@ -15,6 +15,8 @@ var mouseOn;
 var padSpeed = 20;
 var ballSpeed = 4;
 
+//document.getElementById('background_audio').muted = true;
+
 // Constructor for paddles
 function Paddle(x, y, spdX, spdY, width, height, color) {
   this.x = x;
