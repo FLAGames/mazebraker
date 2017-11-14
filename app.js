@@ -115,7 +115,7 @@ var updateCollisionBlock = function() {
   for (var key = 0; key < block.length; key++) {
     var isColliding = testCollisionEntity(ball, block[key]);
     if (isColliding) {
-      // Ccode for redirecting ball direction
+      // Code for redirecting ball direction
       // Ball needs to bounce in a logical way off blocks.  If ball is approaching from side, reverse ball.spdX. If ball is approaching from top or bottom, reverse ball.spdY
       // If the difference between the two entitys' xs is lower than the two entitys' ys, then the ball and the brick are on or close to the same x plane, and must be bounced horizontally, aka reverse ball.spdX
       var xDiff = Math.abs(ball.x - block[key].x);
@@ -320,7 +320,7 @@ var updateBallPosition = function() {
   //   document.location.reload();
   // }
 
-  if (ball.x < ball.ballSize) {
+  if (ball.x < ball.ballSize * 2) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
       ball.spdX = -ball.spdX;
     } else {
@@ -328,7 +328,7 @@ var updateBallPosition = function() {
       ballReset();
     }
   }
-  if (ball.x > WIDTH - ball.ballSize) {
+  if (ball.x > WIDTH - ball.ballSize * 2) {
     if (ball.y > playerRight.y - (playerRight.height / 2) && ball.y < playerRight.y + (playerRight.height / 2) && ball.x < playerRight.x + playerRight.width) {
       ball.spdX = -ball.spdX;
     } else {
@@ -336,7 +336,7 @@ var updateBallPosition = function() {
       ballReset();
     }
   }
-  if (ball.y < ball.ballSize) {
+  if (ball.y < ball.ballSize * 2) {
     if (ball.x > playerTop.x - (playerTop.width / 2) && ball.x < playerTop.x + (playerTop.width / 2) && ball.y < playerTop.y + playerTop.height) {
       ball.spdY = -ball.spdY;
     } else {
@@ -344,7 +344,7 @@ var updateBallPosition = function() {
       ballReset();
     }
   }
-  if (ball.y > HEIGHT - ball.ballSize) {
+  if (ball.y > HEIGHT - ball.ballSize * 2) {
     if (ball.x > playerBottom.x - (playerBottom.width / 2) && ball.x < playerBottom.x + (playerBottom.width / 2) && ball.y > playerBottom.y - (playerBottom.height * 2)) {
       ball.spdY = -ball.spdY;
     } else {
