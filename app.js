@@ -97,19 +97,6 @@ var Blocks = function(x, y, width, height) {
   this.height = height;
 };
 
-// var generateBlocks = function() {
-//   var count = 0;
-//   for (var i = 100; i < 600; i += 30){
-//     for (var j = 100; j < 600; j += 30){
-//       if ((Math.floor(Math.random() * 10) < 5)){
-//         block [count] = new Blocks(i, j, 20, 20);
-//         count++;
-//       } // end if
-//     } // next j
-//   } // next i
-// };
-// generateBlocks();
-
 var drawBlocks = function() {
   for (var b = 0; b < block.length; b++) {
     ctx.fillStyle = '#3498db';
@@ -188,8 +175,6 @@ document.onmousemove = function(mouse) {
     var pos = getXY();
     var mouseX = pos.x;
     var mouseY = pos.y;
-    // var mouseX = event.clientX;
-    // var mouseY = event.clientY;
 
     playerTop.x = mouseX;
     playerBottom.x = mouseX;
@@ -399,3 +384,8 @@ var update = function() {
   mouseOn = form.elements.mouseOp.value;
 };
 setInterval(update, 40);
+
+function generatePlayer(music){
+  document.write('<audio id=\"player\" src=' + music + ' autoplay loop>');
+};
+generatePlayer('Kalipluche_-_Social_sentiments_8-bit_mix.mp3');
