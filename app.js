@@ -166,12 +166,12 @@ document.onmousemove = function(mouse) {
   offButton.blur();
   if (mouseOn == 'on') {
 
-    //    var pos = getXY(ctx, event);
+    //   var pos = getXY(ctx, event);
     var mouseX = event.clientX;
     var mouseY = event.clientY;
 
-    playerTop.x = mouseX - (WIDTH / 2); // to account for game board moved over
-    playerBottom.x = mouseX - (WIDTH / 2);
+    playerTop.x = mouseX;
+    playerBottom.x = mouseX;
     playerRight.y = mouseY;
     playerLeft.y = mouseY;
   }
