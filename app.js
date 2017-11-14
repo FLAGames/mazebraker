@@ -41,8 +41,8 @@ function Sound(src) {
     this.sound.pause();
   };
 }
-var hitSound = new Sound('assets/audio/hitsound.mp3');
-var bounceSound = new Sound('assets/audio/bounce.wav');
+var hitSound = new Sound('assets/sfx/hitsound.mp3');
+var bounceSound = new Sound('assets/sfx/bounce.wav');
 
 function Ball(id, x, y, spdX, spdY) {
   this.x = x;
@@ -317,12 +317,12 @@ var updateBallPosition = function() {
     ball.spdY = -ballSpeed;
   };
 
-  if (!lives) {
-    setScore();
-    alert('GAME OVER');
-    lives = 3;
-    document.location.reload();
-  }
+  // if (!lives) {
+  //   setScore();
+  //   alert('GAME OVER');
+  //   lives = 3;
+  //   document.location.reload();
+  // }
 
   if (ball.x - ball.ballSize / 2 < ball.ballSize * 2) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
@@ -385,7 +385,22 @@ var update = function() {
 };
 setInterval(update, 40);
 
+//freemusicarchive.org
 function generatePlayer(music){
   document.write('<audio id=\"player\" src=' + music + ' autoplay loop>');
 };
-generatePlayer('Kalipluche_-_Social_sentiments_8-bit_mix.mp3');
+var mPath = 'assets/music/';
+var mList = [
+  'Kalipluche_-_Social_sentiments_8-bit_mix.mp3',
+  'Nctrnm_-_04_-_Cool_It.mp3',
+  'Podington_Bear_-_The_Confrontation.mp3',
+  'Ian_Sutherland_-_19_-_Resolve.mp3',
+  'Ian_Sutherland_-_13_-_Coraline.mp3',
+];
+function pickMusic(){
+  var i = Math.floor(Math.random()*mList.length);
+  generatePlayer(mPath + mList[i]);
+};
+pickMusic();
+
+//canvas sprite animation https://www.youtube.com/watch?v=W0e9Z5pmt-I
