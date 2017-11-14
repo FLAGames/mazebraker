@@ -12,6 +12,8 @@ var lives = 3;
 var userName = prompt('Hey! What\'s your name');
 var userScores = [];
 var mouseOn;
+var padSpeed = 20;
+var ballSpeed = 4;
 
 // Constructor for paddles
 function Paddle(x, y, spdX, spdY, width, height, color) {
@@ -22,7 +24,7 @@ function Paddle(x, y, spdX, spdY, width, height, color) {
   this.width = width;
   this.height = height;
   this.color = color;
-}
+};
 
 function Ball(id, x, y, spdX, spdY) {
   this.x = x;
@@ -77,18 +79,18 @@ var Blocks = function(x, y, width, height) {
   this.height = height;
 };
 
-var generateBlocks = function() {
-  var count = 0;
-  for (var i = 100; i < 600; i += 30){
-    for (var j = 100; j < 600; j += 30){
-      if ((Math.floor(Math.random() * 10) < 5)){
-        block [count] = new Blocks(i, j, 20, 20);
-        count++;
-      } // end if
-    } // next j
-  } // next i
-};
-generateBlocks();
+// var generateBlocks = function() {
+//   var count = 0;
+//   for (var i = 100; i < 600; i += 30){
+//     for (var j = 100; j < 600; j += 30){
+//       if ((Math.floor(Math.random() * 10) < 5)){
+//         block [count] = new Blocks(i, j, 20, 20);
+//         count++;
+//       } // end if
+//     } // next j
+//   } // next i
+// };
+//generateBlocks();
 
 var drawBlocks = function() {
   for (var b = 0; b < block.length; b++) {
@@ -152,12 +154,21 @@ var updateCollisionBlock = function() {
 var form = document.getElementById('mouse-option');
 var offButton = document.getElementById('off');
 
+var getXY = function (x, y) {
+    var rect = ctx.getBoundingClientRect();  // absolute position of canvas
+    return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+    }
+};
+
 document.onmousemove = function(mouse) {
   offButton.blur();
   if (mouseOn == 'on') {
 
-    var mouseX = mouse.clientX;
-    var mouseY = mouse.clientY;
+//    var pos = getXY(ctx, event);
+    var mouseX = event.clientX;
+    var mouseY = event.clientY;
 
     playerTop.x = mouseX;
     playerBottom.x = mouseX;
@@ -200,9 +211,9 @@ document.onkeyup = function(event) {
 
 var updatePlayerBottomPosition = function() {
   if (playerBottom.pressingRight)
-    playerBottom.x += 10;
+    playerBottom.x += padSpeed;
   if (playerBottom.pressingLeft)
-    playerBottom.x -= 10;
+    playerBottom.x -= padSpeed;
   //ispositionvalid
   if (playerBottom.x < playerBottom.width / 2)
     playerBottom.x = playerBottom.width / 2;
@@ -212,9 +223,9 @@ var updatePlayerBottomPosition = function() {
 
 var updatePlayerTopPosition = function() {
   if (playerTop.pressingRight)
-    playerTop.x += 10;
+    playerTop.x += padSpeed;
   if (playerTop.pressingLeft)
-    playerTop.x -= 10;
+    playerTop.x -= padSpeed;
   //ispositionvalid
   if (playerTop.x < playerTop.width / 2)
     playerTop.x = playerTop.width / 2;
@@ -224,9 +235,9 @@ var updatePlayerTopPosition = function() {
 
 var updatePlayerLeftPosition = function() {
   if (playerLeft.pressingDown)
-    playerLeft.y += 10;
+    playerLeft.y += padSpeed;
   if (playerLeft.pressingUp)
-    playerLeft.y -= 10;
+    playerLeft.y -= padSpeed;
   //ispositionvalid
   if (playerLeft.y < playerLeft.height / 2)
     playerLeft.y = playerLeft.height / 2;
@@ -236,9 +247,9 @@ var updatePlayerLeftPosition = function() {
 
 var updatePlayerRightPosition = function() {
   if (playerRight.pressingDown)
-    playerRight.y += 10;
+    playerRight.y += padSpeed;
   if (playerRight.pressingUp)
-    playerRight.y -= 10;
+    playerRight.y -= padSpeed;
   //ispositionvalid
   if (playerRight.y < playerRight.height / 2)
     playerRight.y = playerRight.height / 2;
@@ -296,8 +307,8 @@ var updateBallPosition = function() {
   var ballReset = function(){
     ball.x = WIDTH / 2;
     ball.y = HEIGHT - 30;
-    ball.spdX = 4;
-    ball.spdY = -4;
+    ball.spdX = ballSpeed;
+    ball.spdY = -ballSpeed;
   };
 
   if (!lives) {
