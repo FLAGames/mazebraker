@@ -90,7 +90,7 @@ var Blocks = function(x, y, width, height) {
 //     } // next j
 //   } // next i
 // };
-//generateBlocks();
+// generateBlocks();
 
 var drawBlocks = function() {
   for (var b = 0; b < block.length; b++) {
@@ -155,23 +155,23 @@ var form = document.getElementById('mouse-option');
 var offButton = document.getElementById('off');
 
 var getXY = function (x, y) {
-    var rect = ctx.getBoundingClientRect();  // absolute position of canvas
-    return {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-    }
+  var rect = ctx.getBoundingClientRect(); // absolute position of canvas
+  return {
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top
+  };
 };
 
 document.onmousemove = function(mouse) {
   offButton.blur();
   if (mouseOn == 'on') {
 
-//    var pos = getXY(ctx, event);
+    //    var pos = getXY(ctx, event);
     var mouseX = event.clientX;
     var mouseY = event.clientY;
 
-    playerTop.x = mouseX;
-    playerBottom.x = mouseX;
+    playerTop.x = mouseX - (WIDTH / 2); // to account for game board moved over
+    playerBottom.x = mouseX - (WIDTH / 2);
     playerRight.y = mouseY;
     playerLeft.y = mouseY;
   }
