@@ -153,8 +153,9 @@ var updateCollisionBlock = function() {
 var form = document.getElementById('mouse-option');
 var offButton = document.getElementById('off');
 
-var getXY = function (x, y) {
-  var rect = ctx.getBoundingClientRect(); // absolute position of canvas
+var getXY = function () {
+  var canvas = document.getElementById('ctx');
+  var rect = canvas.getBoundingClientRect(); //absolute position of canvas
   return {
     x: event.clientX - rect.left,
     y: event.clientY - rect.top
@@ -165,9 +166,11 @@ document.onmousemove = function(mouse) {
   offButton.blur();
   if (mouseOn == 'on') {
 
-    //   var pos = getXY(ctx, event);
-    var mouseX = event.clientX;
-    var mouseY = event.clientY;
+    var pos = getXY();
+    var mouseX = pos.x;
+    var mouseY = pos.y;
+    // var mouseX = event.clientX;
+    // var mouseY = event.clientY;
 
     playerTop.x = mouseX;
     playerBottom.x = mouseX;
@@ -310,12 +313,12 @@ var updateBallPosition = function() {
     ball.spdY = -ballSpeed;
   };
 
-  if (!lives) {
-    setScore();
-    alert('GAME OVER');
-    lives = 3;
-    document.location.reload();
-  }
+  // if (!lives) {
+  //   setScore();
+  //   alert('GAME OVER');
+  //   lives = 3;
+  //   document.location.reload();
+  // }
 
   if (ball.x < ball.ballSize) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
@@ -342,7 +345,7 @@ var updateBallPosition = function() {
     }
   }
   if (ball.y > HEIGHT - ball.ballSize) {
-    if (ball.x > playerBottom.x - (playerBottom.width / 2) && ball.x < playerBottom.x + (playerBottom.width / 2) && ball.y > playerBottom.y - playerBottom.height) {
+    if (ball.x > playerBottom.x - (playerBottom.width / 2) && ball.x < playerBottom.x + (playerBottom.width / 2) && ball.y > playerBottom.y - (playerBottom.height * 2)) {
       ball.spdY = -ball.spdY;
     } else {
       lives--;
