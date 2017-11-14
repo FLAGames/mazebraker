@@ -35,12 +35,14 @@ function Sound(src) {
   document.body.appendChild(this.sound);
   this.play = function() {
     this.sound.play();
+    this.currentTime = 0;
   };
   this.stop = function() {
     this.sound.pause();
   };
 }
-var hitSound = new Sound('assets/audio/hitsound.wav');
+var hitSound = new Sound('assets/audio/hitsound.mp3');
+var bounceSound = new Sound('assets/audio/bounce.wav');
 
 function Ball(id, x, y, spdX, spdY) {
   this.x = x;
@@ -330,16 +332,17 @@ var updateBallPosition = function() {
     ball.spdY = -ballSpeed;
   };
 
-  // if (!lives) {
-  //   setScore();
-  //   alert('GAME OVER');
-  //   lives = 3;
-  //   document.location.reload();
-  // }
+  if (!lives) {
+    setScore();
+    alert('GAME OVER');
+    lives = 3;
+    document.location.reload();
+  }
 
   if (ball.x - ball.ballSize / 2 < ball.ballSize * 2) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
       ball.spdX = -ball.spdX;
+      bounceSound.play();
     } else {
       lives--;
       ballReset();
@@ -348,6 +351,7 @@ var updateBallPosition = function() {
   if (ball.x > WIDTH - ball.ballSize * 2) {
     if (ball.y > playerRight.y - (playerRight.height / 2) && ball.y < playerRight.y + (playerRight.height / 2) && ball.x < playerRight.x + playerRight.width) {
       ball.spdX = -ball.spdX;
+      bounceSound.play();
     } else {
       lives--;
       ballReset();
@@ -356,6 +360,7 @@ var updateBallPosition = function() {
   if (ball.y < ball.ballSize * 1.5) {
     if (ball.x > playerTop.x - (playerTop.width / 2) && ball.x < playerTop.x + (playerTop.width / 2) && ball.y < playerTop.y + playerTop.height) {
       ball.spdY = -ball.spdY;
+      bounceSound.play();
     } else {
       lives--;
       ballReset();
@@ -364,6 +369,7 @@ var updateBallPosition = function() {
   if (ball.y > HEIGHT - ball.ballSize * 2) {
     if (ball.x > playerBottom.x - (playerBottom.width / 2) && ball.x < playerBottom.x + (playerBottom.width / 2) && ball.y > playerBottom.y - (playerBottom.height * 2)) {
       ball.spdY = -ball.spdY;
+      bounceSound.play();
     } else {
       lives--;
       ballReset();
