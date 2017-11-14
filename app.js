@@ -339,7 +339,7 @@ var updateBallPosition = function() {
   //   document.location.reload();
   // }
 
-  if (ball.x < ball.ballSize * 2) {
+  if (ball.x - ball.ballSize / 2 < ball.ballSize * 2) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
       ball.spdX = -ball.spdX;
     } else {
@@ -355,7 +355,7 @@ var updateBallPosition = function() {
       ballReset();
     }
   }
-  if (ball.y < ball.ballSize * 2) {
+  if (ball.y < ball.ballSize * 1.5) {
     if (ball.x > playerTop.x - (playerTop.width / 2) && ball.x < playerTop.x + (playerTop.width / 2) && ball.y < playerTop.y + playerTop.height) {
       ball.spdY = -ball.spdY;
     } else {
