@@ -90,7 +90,7 @@ var Blocks = function(x, y, width, height) {
 //     } // next j
 //   } // next i
 // };
-//generateBlocks();
+// generateBlocks();
 
 var drawBlocks = function() {
   for (var b = 0; b < block.length; b++) {
@@ -154,8 +154,9 @@ var updateCollisionBlock = function() {
 var form = document.getElementById('mouse-option');
 var offButton = document.getElementById('off');
 
-var getXY = function (ctx, mouse) {
-  var rect = ctx.getBoundingClientRect();//absolute position of canvas
+var getXY = function () {
+  var canvas = document.getElementById('ctx');
+  var rect = canvas.getBoundingClientRect(); //absolute position of canvas
   return {
     x: event.clientX - rect.left,
     y: event.clientY - rect.top
@@ -166,7 +167,7 @@ document.onmousemove = function(mouse) {
   offButton.blur();
   if (mouseOn == 'on') {
 
-    var pos = getXY(x, y);
+    var pos = getXY();
     var mouseX = pos.x;
     var mouseY = pos.y;
     // var mouseX = event.clientX;
@@ -313,12 +314,12 @@ var updateBallPosition = function() {
     ball.spdY = -ballSpeed;
   };
 
-  if (!lives) {
-    setScore();
-    alert('GAME OVER');
-    lives = 3;
-    document.location.reload();
-  }
+  // if (!lives) {
+  //   setScore();
+  //   alert('GAME OVER');
+  //   lives = 3;
+  //   document.location.reload();
+  // }
 
   if (ball.x < ball.ballSize) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
