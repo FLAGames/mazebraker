@@ -154,21 +154,23 @@ var updateCollisionBlock = function() {
 var form = document.getElementById('mouse-option');
 var offButton = document.getElementById('off');
 
-var getXY = function (x, y) {
-    var rect = ctx.getBoundingClientRect();  // absolute position of canvas
-    return {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-    }
+var getXY = function (ctx, mouse) {
+  var rect = ctx.getBoundingClientRect();//absolute position of canvas
+  return {
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top
+  };
 };
 
 document.onmousemove = function(mouse) {
   offButton.blur();
   if (mouseOn == 'on') {
 
-//    var pos = getXY(ctx, event);
-    var mouseX = event.clientX;
-    var mouseY = event.clientY;
+    var pos = getXY(x, y);
+    var mouseX = pos.x;
+    var mouseY = pos.y;
+    // var mouseX = event.clientX;
+    // var mouseY = event.clientY;
 
     playerTop.x = mouseX;
     playerBottom.x = mouseX;
