@@ -335,7 +335,7 @@ var updateBallPosition = function() {
     }
   }
   if (ball.y > HEIGHT - ball.ballSize) {
-    if (ball.x > playerBottom.x - (playerBottom.width / 2) && ball.x < playerBottom.x + (playerBottom.width / 2) && ball.y > playerBottom.y - playerBottom.height) {
+    if (ball.x > playerBottom.x - (playerBottom.width / 2) && ball.x < playerBottom.x + (playerBottom.width / 2) && ball.y > playerBottom.y - (playerBottom.height * 2)) {
       ball.spdY = -ball.spdY;
       console.log('bounce!');
     } else {
