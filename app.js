@@ -27,7 +27,7 @@ function Paddle(x, y, spdX, spdY, width, height, color) {
 };
 
 // Create adio objects
-var bounceSound = new Audio('assets/sfx/bounce.wav');
+var bounceSound = new Audio('assets/sfx/Spring.wav');
 var hitSound = new Audio('assets/sfx/hitSound.mp3');
 
 // Preload audio objects so that we can play as fast as we need to
