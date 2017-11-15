@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    button, input {
+      padding: 5px;
+      margin: 5px;
+    }
+    </style>
+  </head>
+  <body>
+    <script>
+    'use strict';
+    for (var j = 0; j < 21; j++) {
+      for (var i = 0; i < 21; i++) {
+        function generateButton(){
+          document.write('<button id=\''+ (j) + ',' + (i) + '\' >' + (i+1) + '</button>');
+          //document.write('<input type="button" id=\"'+ (j) + ',' + (i) + '\" value = "button" style= "color:white" onclick="setColor(' + button + ', '#101010')";/>');
+        }
+        generateButton();
+      }
+      document.write('</br>');
+    };
+    //create on click function to change button coller after click
+    function setColor(btn, color){
+      var count=1;
+      var property = document.getElementById(btn);
+      if (count == 0){
+          property.style.backgroundColor = "#FFFFFF"
+          count=1;
+      }
+      else{
+          property.style.backgroundColor = "#7FFF00"
+          count=0;
+      }
+    };
+    //when clicked generates block for that position
+    //button to submit created map as a javaScript map
+
+    </script>
+    <form>
+      <button id="submit">Submit Map</button>
+
+    </form>
+  </body>
+</html>

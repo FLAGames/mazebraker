@@ -123,6 +123,7 @@ var updateCollisionBlock = function() {
       // Code for redirecting ball direction
       // Ball needs to bounce in a logical way off blocks.  If ball is approaching from side, reverse ball.spdX. If ball is approaching from top or bottom, reverse ball.spdY
       // If the difference between the two entitys' xs is lower than the two entitys' ys, then the ball and the brick are on or close to the same x plane, and must be bounced horizontally, aka reverse ball.spdX
+      ctx.drawImage(Img.block,block[key].x,block[key].y);
       var xDiff = Math.abs(ball.x - block[key].x);
       var yDiff = Math.abs(ball.y - block[key].y);
       if (xDiff < yDiff) { // reverse ball's horizontal direction
@@ -398,9 +399,12 @@ var mList = [
   'Ian_Sutherland_-_13_-_Coraline.mp3',
 ];
 function pickMusic(){
-  var i = Math.floor(Math.random()*mList.length);
+  var i = Math.floor(Math.random() * mList.length);
   generatePlayer(mPath + mList[i]);
 };
 pickMusic();
 
 //canvas sprite animation https://www.youtube.com/watch?v=W0e9Z5pmt-I
+var Img = {};
+Img.block = new Image();
+Img.block.src = 'assets/vfx/40px_SpriteSheet.png';
