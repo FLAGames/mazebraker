@@ -315,12 +315,12 @@ var updateBallPosition = function() {
     ball.spdY = -ballSpeed;
   };
 
-  // if (!lives) {
-  //   setScore();
-  //   alert('GAME OVER');
-  //   lives = 3;
-  //   document.location.reload();
-  // }
+  if (!lives) {
+    setScore();
+    alert('GAME OVER');
+    lives = 3;
+    document.location.reload();
+  }
 
   if (ball.x - ball.ballSize / 2 < ball.ballSize * 2) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
