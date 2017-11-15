@@ -14,6 +14,7 @@ var userScores = [];
 var mouseOn;
 var padSpeed = 20;
 var ballSpeed = 4;
+var paused = false;
 
 // Constructor for paddles
 function Paddle(x, y, spdX, spdY, width, height, color) {
@@ -28,7 +29,7 @@ function Paddle(x, y, spdX, spdY, width, height, color) {
 
 // Create adio objects
 var bounceSound = new Audio('assets/sfx/Spring.wav');
-var hitSound = new Audio('assets/sfx/hitSound.mp3');
+var hitSound = new Audio('assets/sfx/hitsound.mp3');
 
 // Preload audio objects so that we can play as fast as we need to
 hitSound.preload = 'auto';
@@ -114,6 +115,12 @@ var testCollisionEntity = function(entity1, entity2) { //return if colliding (tr
   return distance < 20;
 };
 
+var Img = {};
+Img.block = new Image();
+Img.block.src = 'assets/vfx/40px_SpriteSheet.png';
+Img.block.height = 40;
+Img.block.width = 40;
+
 var updateCollisionBlock = function() {
   for (var key = 0; key < block.length; key++) {
     var isColliding = testCollisionEntity(ball, block[key]);
@@ -121,7 +128,8 @@ var updateCollisionBlock = function() {
       // Code for redirecting ball direction
       // Ball needs to bounce in a logical way off blocks.  If ball is approaching from side, reverse ball.spdX. If ball is approaching from top or bottom, reverse ball.spdY
       // If the difference between the two entitys' xs is lower than the two entitys' ys, then the ball and the brick are on or close to the same x plane, and must be bounced horizontally, aka reverse ball.spdX
-      ctx.drawImage(Img.block,block[key].x,block[key].y);
+      ctx.drawImage(Img.block,
+        block[key].x,block[key].y);
       var xDiff = Math.abs(ball.x - block[key].x);
       var yDiff = Math.abs(ball.y - block[key].y);
       if (xDiff < yDiff) { // reverse ball's horizontal direction
@@ -195,6 +203,8 @@ document.onkeydown = function(event) {
   } else if (event.keyCode === 87 || event.keyCode === 38) { // w or Up Arrow
     playerLeft.pressingUp = true;
     playerRight.pressingUp = true;
+  } else if (event.keyCode === 80) { //p
+    paused = !paused;
   }
 };
 
@@ -316,12 +326,12 @@ var updateBallPosition = function() {
     ball.spdY = -ballSpeed;
   };
 
-  if (!lives) {
-    setScore();
-    alert('GAME OVER');
-    lives = 3;
-    document.location.reload();
-  }
+  // if (!lives) {
+  //   setScore();
+  //   alert('GAME OVER');
+  //   lives = 3;
+  //   document.location.reload();
+  // }
 
   if (ball.x - ball.ballSize / 2 < ball.ballSize * 2) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
@@ -364,6 +374,9 @@ var updateBallPosition = function() {
 };
 
 var update = function() {
+  if(paused){
+    return;
+  };
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
   ctx.fillText(points + ' Points', 5, 30);
   ctx.fillText(lives + ' lives', 590, 30);
@@ -403,6 +416,3 @@ function pickMusic(){
 pickMusic();
 
 //canvas sprite animation https://www.youtube.com/watch?v=W0e9Z5pmt-I
-var Img = {};
-Img.block = new Image();
-Img.block.src = 'assets/vfx/40px_SpriteSheet.png';
