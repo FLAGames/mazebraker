@@ -26,23 +26,21 @@ function Paddle(x, y, spdX, spdY, width, height, color) {
   this.color = color;
 };
 
-function Sound(src) {
-  this.sound = document.createElement('audio');
-  this.sound.src = src;
-  this.sound.setAttribute('preload', 'auto');
-  this.sound.setAttribute('controls', 'none');
-  this.sound.style.display = 'none';
-  document.body.appendChild(this.sound);
-  this.play = function() {
-    this.sound.play();
-    this.currentTime = 0;
-  };
-  this.stop = function() {
-    this.sound.pause();
-  };
+// Create adio objects
+var bounceSound = new Audio('assets/sfx/bounce.wav');
+var hitSound = new Audio('assets/sfx/hitSound.mp3');
+
+// Preload audio objects so that we can play as fast as we need to
+hitSound.preload = 'auto';
+hitSound.load();
+bounceSound.preload = 'auto';
+bounceSound.load();
+
+// funciton to play sound takes an audio objects as an argument
+function playSound(sfx) {
+  var sound = sfx.cloneNode();
+  sound.play();
 }
-var hitSound = new Sound('assets/sfx/hitsound.mp3');
-var bounceSound = new Sound('assets/sfx/bounce.wav');
 
 function Ball(id, x, y, spdX, spdY) {
   this.x = x;
@@ -137,7 +135,7 @@ var updateCollisionBlock = function() {
         block[r] = block[r + 1];
       }
       block.pop();
-      hitSound.play();
+      playSound(hitSound);
       points++;
     }
   }
@@ -327,7 +325,7 @@ var updateBallPosition = function() {
   if (ball.x - ball.ballSize / 2 < ball.ballSize * 2) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - playerLeft.width) {
       ball.spdX = -ball.spdX;
-      bounceSound.play();
+      playSound(bounceSound);
     } else {
       lives--;
       ballReset();
@@ -336,7 +334,7 @@ var updateBallPosition = function() {
   if (ball.x > WIDTH - ball.ballSize * 2) {
     if (ball.y > playerRight.y - (playerRight.height / 2) && ball.y < playerRight.y + (playerRight.height / 2) && ball.x < playerRight.x + playerRight.width) {
       ball.spdX = -ball.spdX;
-      bounceSound.play();
+      playSound(bounceSound);
     } else {
       lives--;
       ballReset();
@@ -345,7 +343,7 @@ var updateBallPosition = function() {
   if (ball.y < ball.ballSize * 1.5) {
     if (ball.x > playerTop.x - (playerTop.width / 2) && ball.x < playerTop.x + (playerTop.width / 2) && ball.y < playerTop.y + playerTop.height) {
       ball.spdY = -ball.spdY;
-      bounceSound.play();
+      playSound(bounceSound);
     } else {
       lives--;
       ballReset();
@@ -354,7 +352,7 @@ var updateBallPosition = function() {
   if (ball.y > HEIGHT - ball.ballSize * 2) {
     if (ball.x > playerBottom.x - (playerBottom.width / 2) && ball.x < playerBottom.x + (playerBottom.width / 2) && ball.y > playerBottom.y - (playerBottom.height * 2)) {
       ball.spdY = -ball.spdY;
-      bounceSound.play();
+      playSound(bounceSound);
     } else {
       lives--;
       ballReset();
@@ -398,7 +396,7 @@ var mList = [
   'Ian_Sutherland_-_13_-_Coraline.mp3',
 ];
 function pickMusic(){
-  var i = Math.floor(Math.random()*mList.length);
+  var i = Math.floor(Math.random() * mList.length);
   generatePlayer(mPath + mList[i]);
 };
 pickMusic();
