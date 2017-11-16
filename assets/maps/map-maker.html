@@ -6,24 +6,50 @@
     <style>
     button, input {
       padding: 5px;
-      margin: 5px;
+      margin: 10px;
     }
     </style>
   </head>
   <body>
     <script>
     'use strict';
-    for (var j = 0; j < 21; j++) {
-      for (var i = 0; i < 21; i++) {
-        function generateButton(){
-          document.write('<button id=\''+ (j) + ',' + (i) + '\' >' + (i+1) + '</button>');
+    var block = [];
+    //block [0] = new Blocks(100, 100, 20, 20);
+    var Blocks = function(x, y, width, height) {
+      this.x = x;
+      this.y = y;
+      this.width = width;
+      this.height = height;
+    };
+
+    var generateBlocks = function() {
+      var count = 0;
+      for (var i = 100; i < 600; i += 30){
+        for (var j = 100; j < 600; j += 30){
+          block [count] = new Blocks(i, j, 20, 20);
+          count++;
+        } // next j
+      } // next i
+    };
+
+    generateBlocks();
+
+    for (var j = 0; j < 17; j++) {
+      var count = 0;
+      for (var i = 0; i < 17; i++) {
+        function generateButtons(){
+          document.write('<button id=\''+ count + '\'  style= "color:white" onclick="setColor(\' + button + \', \'#101010\')";>' + (i+1) + '</button>');
           //document.write('<input type="button" id=\"'+ (j) + ',' + (i) + '\" value = "button" style= "color:white" onclick="setColor(' + button + ', '#101010')";/>');
+          count++;
         }
-        generateButton();
+        generateButtons();
       }
       document.write('</br>');
     };
     //create on click function to change button coller after click
+    function buttonClick(){
+
+    };
     function setColor(btn, color){
       var count=1;
       var property = document.getElementById(btn);
