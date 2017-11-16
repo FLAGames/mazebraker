@@ -149,7 +149,6 @@ var updateCollisionBlock = function() {
       playSound(hitSound);
       points++;
       blockVFX();
-      //console.log('p3 ' + );
     }
   }
 };
@@ -159,36 +158,36 @@ var blockBurstY = 0;
 var frame = 0;
 var currentFrame = 0;
 
-var blockVFX = function(){
+var blockVFX = function() {
 
   //(image,X,Y)
   //ctx.drawImage(Img.block,block[key].x,block[key].y);
-/*ctx.drawImage(image,
-    cropStartX,CropStartY,CropWidth,CropHeight,
-    drawX,drawY,drawWidth,drawHeight);*/
-  if (frame = currentFrame){
-  ctx.drawImage(Img.block,
-      0,0,Img.block.width,Img.block.height,
-      blockBurstX - 10,blockBurstY -10,20,20);
-      console.log('part 1');
+  /*ctx.drawImage(image,
+      cropStartX,CropStartY,CropWidth,CropHeight,
+      drawX,drawY,drawWidth,drawHeight);*/
+  if (frame = currentFrame) {
+    ctx.drawImage(Img.block,
+      0, 0, Img.block.width, Img.block.height,
+      blockBurstX - 10, blockBurstY - 10, 20, 20);
+    console.log('part 1');
   };
-  if (frame > currentFrame + 1){
-  ctx.drawImage(Img.block,
-      20,0,Img.block.width,Img.block.height,
-      blockBurstX - 10,blockBurstY -10,20,20);
-      console.log('part 2');
+  if (frame > currentFrame + 1) {
+    ctx.drawImage(Img.block,
+      20, 0, Img.block.width, Img.block.height,
+      blockBurstX - 10, blockBurstY - 10, 20, 20);
+    console.log('part 2');
   };
-  if (frame = currentFrame + 2){
-  ctx.drawImage(Img.block,
-      0,20,Img.block.width,Img.block.height,
-      blockBurstX - 10,blockBurstY -10,20,20);
-      console.log('part 3');
+  if (frame = currentFrame + 2) {
+    ctx.drawImage(Img.block,
+      0, 20, Img.block.width, Img.block.height,
+      blockBurstX - 10, blockBurstY - 10, 20, 20);
+    console.log('part 3');
   };
-  if (frame = currentFrame + 3){
-  ctx.drawImage(Img.block,
-      20,20,Img.block.width,Img.block.height,
-      blockBurstX - 10,blockBurstY -10,20,20);
-      console.log('part 4');
+  if (frame = currentFrame + 3) {
+    ctx.drawImage(Img.block,
+      20, 20, Img.block.width, Img.block.height,
+      blockBurstX - 10, blockBurstY - 10, 20, 20);
+    console.log('part 4');
   };
 };
 
@@ -350,7 +349,6 @@ function setScore() {
     return element['user name'] === userName;
   });
 
-  console.log(existingUser);
   if (existingUser === -1) {
     userScores.push(userScore);
   } else if (points > userScores[existingUser]['score']) {
@@ -416,7 +414,7 @@ var updateBallPosition = function() {
 };
 
 var update = function() {
-  if(paused){
+  if (paused) {
     return;
   };
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -435,13 +433,12 @@ var update = function() {
   drawBall();
   drawBlocks();
   updateCollisionBlock();
-  //console.log('form.element.mouseOp =', form.elements.mouseOp);
   mouseOn = form.elements.mouseOp.value;
 };
 setInterval(update, 40);
 
 //freemusicarchive.org
-function generatePlayer(music){
+function generatePlayer(music) {
   document.write('<audio id=\"player\" src=' + music + ' autoplay loop>');
 };
 var mPath = 'assets/music/';
@@ -452,7 +449,8 @@ var mList = [
   'Ian_Sutherland_-_19_-_Resolve.mp3',
   'Ian_Sutherland_-_13_-_Coraline.mp3',
 ];
-function pickMusic(){
+
+function pickMusic() {
   var i = Math.floor(Math.random() * mList.length);
   generatePlayer(mPath + mList[i]);
 };

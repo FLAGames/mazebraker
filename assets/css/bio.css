@@ -8,11 +8,11 @@
 }
 
 .row > * {
-	float: left;
+	float: none;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: 0 0 0 80px;
+	padding: 15px;
 }
 
 .row:after, .row:before {
@@ -22,6 +22,9 @@
 	height: 0;
 }
 
+.container {
+	margin-top: 80px;
+}
 .contact {
 	width: 100%;
 	clear: none;
@@ -29,9 +32,14 @@
 }
 
 .work{
-	width: 33.3333333333%;
+	width: 100%;
 	clear: none;
 	margin-left: 0;
+}
+
+.card {
+	width: 100%;
+	margin-bottom: 40px;
 }
 
 /* Body */
@@ -71,7 +79,7 @@ h3 {
 }
 
 header {
-	margin: 0 0 3em 0;
+	margin: 30px 0 3em 0;
 }
 
 footer {
@@ -79,13 +87,13 @@ footer {
 }
 
 .wrapper {
-	padding: 8em 0 8em 0;
+	padding: 2em 0 2em 0;
 	text-align: center;
 	align-content: center;
 }
 
 .wrapper.first {
-	padding-top: 12em;
+	padding-top: 8em;
 }
 
 /* Image */
@@ -96,7 +104,8 @@ footer {
 
 .image img {
 	display: block;
-	width: 100%;
+  max-width: 326px;
+	margin: 0 auto;
 }
 
 .image.fit {
@@ -132,35 +141,33 @@ ul.social li a {
 	-ms-transition: top .2s ease-in-out;
 	transition: top .2s ease-in-out;
 	display: block;
-	width: 48px;
-	height: 48px;
 	border-radius: 6px;
 	top: 0;
 	position: relative;
+	color: #a2a2a2;
 }
 
 ul.social li a:before {
-	-moz-transition: background-color .2s ease-in-out;
-	-webkit-transition: background-color .2s ease-in-out;
-	-ms-transition: background-color .2s ease-in-out;
-	transition: background-color .2s ease-in-out;
-	background-color: lightblue;
-	border-radius: 6px;
-	box-shadow: inset 0px 0px 0px 1px #282828, inset 0px 2px 1px 0px rgba(255, 255, 255, 0.1);
-	color: #2E2E2E !important;
+	transition: all 0.2s ease-in-out;
+	border-radius: 100%;
+	border: solid 1px #a2a2a2;
 	display: block;
-	font-size: 26px;
-	height: 48px;
-	line-height: 48px;
+	font-size: 1.75em;
+	height: 2.5em;
+	line-height: 2.5em;
+	position: relative;
 	text-align: center;
-	outline: 0;
-	overflow: hidden;
-	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.1);
-	width: 48px;
+	top: 0;
+	width: 2.5em;
 }
 
 ul.social li a:hover {
 	top: -5px;
+	color: #333;
+}
+
+ul.social li a:hover:before {
+	border-color: #333;
 }
 
 ul.social li a:hover:before {
@@ -225,4 +232,51 @@ ul.social li a:hover:before {
 
 #top p a {
 	color: inherit;
+}
+
+.name {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding: 0 20px;
+}
+
+.button {
+	font-size: .8rem;
+	padding: .85rem 2.13rem;
+	margin: 6px;
+	border-radius: 2px;
+	border: 0;
+	-webkit-transition: .2s ease-out;
+	transition: .2s ease-out;
+	white-space: normal!important;
+	word-wrap: break-word;
+	cursor: pointer;
+	background-color: #4285F4;
+	color: white;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: bold;
+	-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+
+.button:hover {
+	background-color: #5f99f9;
+}
+
+@media (min-width: 800px) {
+	.row > * {
+		float: left !important;
+		padding: 0 0 0 80px;
+	}
+	.work {
+		margin-bottom: 40px;
+		width: 33.3333333333%;
+	}
+	.card {
+		border-radius: 2px;
+		padding: 0 !important;
+		width: 48%;
+		margin: 10px;
+	}
 }
