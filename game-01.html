@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Maze Breaker</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/game-01.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <canvas id="ctx" width="700" height="700" style="border:1px solid #000000;"></canvas>
+      <div id="score-board" class="clearfix">
+        <h2 id="score-title">High Scores</h2>
+        <div id="score-list">
+          <div class="score-head">Player Name</div>
+          <div class="score-head">Player Score</div>
+          <div id="player-column"></div>
+          <div id="score-column" class="sore-head"></div>
+        </div>
+      </div>
+        <p>Uses keyboard AWSD or arrow keys to move the paddles.</p>
+        <p>You can also use the mouse, this can also be disabled.</p>
+        <p>The "P" key on the keyboard pauses the game.<p>
+        <form id="mouse-option" action="/mouseOp" method = "post">
+          <input type="radio" name="mouseOp" value="on" id="on" checked="checked" />
+          <label for="on">Mouse control on</label><br>
+          <input type="radio" name="mouseOp" value="off" id="off" />
+          <label for="off">Mouse control off</label><br>
+          <input type="checkbox" onclick="document.getElementById('player').muted=!document.getElementById('player').muted">  Mute Music</input>
+        </form>
+      </div>
+      <script type="text/JavaScript" src="assets/js/game-01.js"></script>
+      <!-- <script type="text/JavaScript" src="map-test.js"></script> -->
+      <script type="text/JavaScript" src="assets/maps/map-random.js"></script>
+    </body>
+</html>
