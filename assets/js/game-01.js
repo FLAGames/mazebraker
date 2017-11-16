@@ -15,6 +15,13 @@ var mouseOn;
 var padSpeed = 20;
 var ballSpeed = 4;
 var paused = false;
+var Img = {};
+Img.block = new Image();
+Img.block.src = 'assets/vfx/40px_SpriteSheet.png';
+//Img.block.height = 20;
+//Img.block.width = 20;
+Img.ball = new Image();
+Img.ball.src = 'assets/vfx/plasmaball.png';
 
 // Constructor for paddles
 function Paddle(x, y, spdX, spdY, width, height, color) {
@@ -79,11 +86,17 @@ var drawEntity = function(something) {
   ctx.fillRect(something.x - something.width / 2, something.y - something.height / 2, something.width, something.height);
   ctx.restore();
 };
+/*ctx.drawImage(image,
+    cropStartX,CropStartY,CropWidth,CropHeight,
+    drawX,drawY,drawWidth,drawHeight);*/
+var animation = 0;
 
 var drawBall = function() {
+  var anim = animation % 3;
   ctx.beginPath();
-  ctx.arc(ball.x, ball.y, ball.ballSize, 0, Math.PI * 2);
-  ctx.fillStyle = '#3498db';
+  //ctx.arc(ball.x, ball.y, ball.ballSize, 0, Math.PI * 2);
+  ctx.drawImage(Img.ball, anim * 128, 0, 128, 128, ball.x - 20, ball.y - 20, 40, 40);
+  //ctx.fillStyle = '#3498db';
   ctx.fill();
   ctx.closePath();
 };
@@ -114,12 +127,6 @@ var testCollisionEntity = function(entity1, entity2) { //return if colliding (tr
   var distance = getDistanceBetweenEntity(entity1, entity2);
   return distance < 20;
 };
-
-var Img = {};
-Img.block = new Image();
-Img.block.src = 'assets/vfx/40px_SpriteSheet.png';
-//Img.block.height = 20;
-//Img.block.width = 20;
 
 var updateCollisionBlock = function() {
   for (var key = 0; key < block.length; key++) {
@@ -162,32 +169,32 @@ var blockVFX = function() {
 
   //(image,X,Y)
   //ctx.drawImage(Img.block,block[key].x,block[key].y);
-  /*ctx.drawImage(image,
-      cropStartX,CropStartY,CropWidth,CropHeight,
-      drawX,drawY,drawWidth,drawHeight);*/
-  if (frame = currentFrame) {
-    ctx.drawImage(Img.block,
-      0, 0, Img.block.width, Img.block.height,
-      blockBurstX - 10, blockBurstY - 10, 20, 20);
-    console.log('part 1');
+/*ctx.drawImage(image,
+    cropStartX,CropStartY,CropWidth,CropHeight,
+    drawX,drawY,drawWidth,drawHeight);*/
+  if (frame = currentFrame){
+  ctx.drawImage(Img.block,
+      0,0,Img.block.width,Img.block.height,
+      blockBurstX - 10,blockBurstY -10,20,20);
+      //console.log('part 1');
   };
-  if (frame > currentFrame + 1) {
-    ctx.drawImage(Img.block,
-      20, 0, Img.block.width, Img.block.height,
-      blockBurstX - 10, blockBurstY - 10, 20, 20);
-    console.log('part 2');
+  if (frame > currentFrame + 1){
+  ctx.drawImage(Img.block,
+      20,0,Img.block.width,Img.block.height,
+      blockBurstX - 10,blockBurstY -10,20,20);
+      //console.log('part 2');
   };
-  if (frame = currentFrame + 2) {
-    ctx.drawImage(Img.block,
-      0, 20, Img.block.width, Img.block.height,
-      blockBurstX - 10, blockBurstY - 10, 20, 20);
-    console.log('part 3');
+  if (frame = currentFrame + 2){
+  ctx.drawImage(Img.block,
+      0,20,Img.block.width,Img.block.height,
+      blockBurstX - 10,blockBurstY -10,20,20);
+      //console.log('part 3');
   };
-  if (frame = currentFrame + 3) {
-    ctx.drawImage(Img.block,
-      20, 20, Img.block.width, Img.block.height,
-      blockBurstX - 10, blockBurstY - 10, 20, 20);
-    console.log('part 4');
+  if (frame = currentFrame + 3){
+  ctx.drawImage(Img.block,
+      20,20,Img.block.width,Img.block.height,
+      blockBurstX - 10,blockBurstY -10,20,20);
+      //console.log('part 4');
   };
 };
 
@@ -363,7 +370,7 @@ var updateBallPosition = function() {
     ball.x = WIDTH / 2;
     ball.y = HEIGHT - 30;
     ball.spdX = ballSpeed;
-    ball.spdY = -ballSpeed;
+    ball.spdY = -(ballSpeed - 1);
   };
 
   // if (!lives) {
@@ -433,6 +440,8 @@ var update = function() {
   drawBall();
   drawBlocks();
   updateCollisionBlock();
+  animation++;
+  //console.log('form.element.mouseOp =', form.elements.mouseOp);
   mouseOn = form.elements.mouseOp.value;
 };
 setInterval(update, 40);
