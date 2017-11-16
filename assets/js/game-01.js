@@ -435,7 +435,6 @@ var update = function() {
   drawBall();
   drawBlocks();
   updateCollisionBlock();
-  //console.log('form.element.mouseOp =', form.elements.mouseOp);
   mouseOn = form.elements.mouseOp.value;
 };
 setInterval(update, 40);
