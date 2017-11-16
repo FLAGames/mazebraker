@@ -24,7 +24,7 @@
 }
 
 .icon.featured {
-	color: #EA8A95;
+	color: #4daeef;
 	display: block;
 	margin: 0 0 1.5em 0;
 	cursor: default;
@@ -32,4 +32,8 @@
 
 .icon.featured:before {
 	font-size: 6em;
+}
+
+.work img {
+	max-width: 100%;
 }

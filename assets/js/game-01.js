@@ -156,7 +156,6 @@ var updateCollisionBlock = function() {
       playSound(hitSound);
       points++;
       blockVFX();
-      //console.log('p3 ' + );
     }
   }
 };
@@ -166,7 +165,7 @@ var blockBurstY = 0;
 var frame = 0;
 var currentFrame = 0;
 
-var blockVFX = function(){
+var blockVFX = function() {
 
   //(image,X,Y)
   //ctx.drawImage(Img.block,block[key].x,block[key].y);
@@ -357,7 +356,6 @@ function setScore() {
     return element['user name'] === userName;
   });
 
-  console.log(existingUser);
   if (existingUser === -1) {
     userScores.push(userScore);
   } else if (points > userScores[existingUser]['score']) {
@@ -423,7 +421,7 @@ var updateBallPosition = function() {
 };
 
 var update = function() {
-  if(paused){
+  if (paused) {
     return;
   };
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -449,7 +447,7 @@ var update = function() {
 setInterval(update, 40);
 
 //freemusicarchive.org
-function generatePlayer(music){
+function generatePlayer(music) {
   document.write('<audio id=\"player\" src=' + music + ' autoplay loop>');
 };
 var mPath = 'assets/music/';
@@ -460,7 +458,8 @@ var mList = [
   'Ian_Sutherland_-_19_-_Resolve.mp3',
   'Ian_Sutherland_-_13_-_Coraline.mp3',
 ];
-function pickMusic(){
+
+function pickMusic() {
   var i = Math.floor(Math.random() * mList.length);
   generatePlayer(mPath + mList[i]);
 };
