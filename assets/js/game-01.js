@@ -15,13 +15,20 @@ var mouseOn;
 var padSpeed = 20;
 var ballSpeed = 4;
 var paused = false;
+var frame = 0;
+var currentFrame = 0;
+var blockBurstX = 0;
+var blockBurstY = 0;
 var Img = {};
 Img.block = new Image();
-Img.block.src = 'assets/vfx/40px_SpriteSheet.png';
-//Img.block.height = 20;
-//Img.block.width = 20;
+Img.block.src = 'assets/vfx/20px_linear_SpriteTest.png';
+Img.block.height = 20;
+Img.block.width = 20;
 Img.ball = new Image();
 Img.ball.src = 'assets/vfx/plasmaball.png';
+Img.brick = new Image();
+Img.brick.src = 'assets/vfx/brick.jpg';
+
 
 // Constructor for paddles
 function Paddle(x, y, spdX, spdY, width, height, color) {
@@ -86,16 +93,18 @@ var drawEntity = function(something) {
   ctx.fillRect(something.x - something.width / 2, something.y - something.height / 2, something.width, something.height);
   ctx.restore();
 };
-/*ctx.drawImage(image,
-    cropStartX,CropStartY,CropWidth,CropHeight,
-    drawX,drawY,drawWidth,drawHeight);*/
-var animation = 0;
 
 var drawBall = function() {
-  var anim = animation % 3;
+  var animation1 = frame % 4;
+  var animation2 = 0 % 4;
+  if (animation1 === 3) {
+    animation2+= 1;
+  }
+  //console.log(animation1 + ', ' + animation2);
+
   ctx.beginPath();
   //ctx.arc(ball.x, ball.y, ball.ballSize, 0, Math.PI * 2);
-  ctx.drawImage(Img.ball, anim * 128, 0, 128, 128, ball.x - 20, ball.y - 20, 40, 40);
+  ctx.drawImage(Img.ball, animation2 * 128, animation1 * 128, 128, 128, ball.x - 20, ball.y - 20, 40, 40);
   //ctx.fillStyle = '#3498db';
   ctx.fill();
   ctx.closePath();
@@ -108,11 +117,14 @@ var Blocks = function(x, y, width, height) {
   this.width = width;
   this.height = height;
 };
-
+/*ctx.drawImage(image,
+    cropStartX,CropStartY,CropWidth,CropHeight,
+    drawX,drawY,drawWidth,drawHeight);*/
 var drawBlocks = function() {
   for (var b = 0; b < block.length; b++) {
-    ctx.fillStyle = '#3498db';
-    ctx.fillRect(block[b].x - block[b].width / 2, block[b].y - block[b].height / 2, block[b].width, block[b].height);
+    //ctx.fillStyle = '#3498db';
+    ctx.drawImage(Img.brick, 0, 0, 236, 236, block[b].x - block[b].width / 2, block[b].y - block[b].height / 2, block[b].width, block[b].height);
+    //ctx.fillRect(block[b].x - block[b].width / 2, block[b].y - block[b].height / 2, block[b].width, block[b].height);
   }
 };
 
@@ -160,42 +172,39 @@ var updateCollisionBlock = function() {
   }
 };
 
-var blockBurstX = 0;
-var blockBurstY = 0;
-var frame = 0;
-var currentFrame = 0;
+
 
 var blockVFX = function() {
-
+  var animation = frame % 4;
   //(image,X,Y)
   //ctx.drawImage(Img.block,block[key].x,block[key].y);
 /*ctx.drawImage(image,
     cropStartX,CropStartY,CropWidth,CropHeight,
     drawX,drawY,drawWidth,drawHeight);*/
-  if (frame = currentFrame){
+
   ctx.drawImage(Img.block,
-      0,0,Img.block.width,Img.block.height,
+      animation * 20,0,Img.block.width,Img.block.height,
       blockBurstX - 10,blockBurstY -10,20,20);
-      //console.log('part 1');
-  };
-  if (frame > currentFrame + 1){
-  ctx.drawImage(Img.block,
-      20,0,Img.block.width,Img.block.height,
-      blockBurstX - 10,blockBurstY -10,20,20);
-      //console.log('part 2');
-  };
-  if (frame = currentFrame + 2){
-  ctx.drawImage(Img.block,
-      0,20,Img.block.width,Img.block.height,
-      blockBurstX - 10,blockBurstY -10,20,20);
-      //console.log('part 3');
-  };
-  if (frame = currentFrame + 3){
-  ctx.drawImage(Img.block,
-      20,20,Img.block.width,Img.block.height,
-      blockBurstX - 10,blockBurstY -10,20,20);
-      //console.log('part 4');
-  };
+      console.log('part 1');
+
+  // if (frame > currentFrame + 1){
+  // ctx.drawImage(Img.block,
+  //     20,0,Img.block.width,Img.block.height,
+  //     blockBurstX - 10,blockBurstY -10,20,20);
+  //     console.log('part 2');
+  // };
+  // if (frame = currentFrame + 2){
+  // ctx.drawImage(Img.block,
+  //     0,20,Img.block.width,Img.block.height,
+  //     blockBurstX - 10,blockBurstY -10,20,20);
+  //     console.log('part 3');
+  // };
+  // if (frame = currentFrame + 3){
+  // ctx.drawImage(Img.block,
+  //     20,20,Img.block.width,Img.block.height,
+  //     blockBurstX - 10,blockBurstY -10,20,20);
+  //     console.log('part 4');
+  // };
 };
 
 (function() {
@@ -427,7 +436,7 @@ var update = function() {
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
   ctx.fillText(points + ' Points', 5, 30);
   ctx.fillText(lives + ' lives', 590, 30);
-  frame++;
+  frame += 1;
   updatePlayerTopPosition();
   drawEntity(playerTop);
   updatePlayerBottomPosition();
@@ -440,7 +449,6 @@ var update = function() {
   drawBall();
   drawBlocks();
   updateCollisionBlock();
-  animation++;
   //console.log('form.element.mouseOp =', form.elements.mouseOp);
   mouseOn = form.elements.mouseOp.value;
 };
