@@ -29,7 +29,6 @@ Img.ball.src = 'assets/vfx/plasmaball.png';
 Img.brick = new Image();
 Img.brick.src = 'assets/vfx/brick.jpg';
 
-
 // Constructor for paddles
 function Paddle(x, y, spdX, spdY, width, height, color) {
   this.x = x;
@@ -96,12 +95,7 @@ var drawEntity = function(something) {
 
 var drawBall = function() {
   var animation1 = frame % 4;
-  var animation2 = 0 % 4;
-  if (animation1 === 3) {
-    animation2+= 1;
-  }
-  //console.log(animation1 + ', ' + animation2);
-
+  var animation2 = points % 4;
   ctx.beginPath();
   //ctx.arc(ball.x, ball.y, ball.ballSize, 0, Math.PI * 2);
   ctx.drawImage(Img.ball, animation2 * 128, animation1 * 128, 128, 128, ball.x - 20, ball.y - 20, 40, 40);
@@ -172,39 +166,16 @@ var updateCollisionBlock = function() {
   }
 };
 
-
-
 var blockVFX = function() {
   var animation = frame % 4;
   //(image,X,Y)
   //ctx.drawImage(Img.block,block[key].x,block[key].y);
-/*ctx.drawImage(image,
+  /*ctx.drawImage(image,
     cropStartX,CropStartY,CropWidth,CropHeight,
     drawX,drawY,drawWidth,drawHeight);*/
-
   ctx.drawImage(Img.block,
-      animation * 20,0,Img.block.width,Img.block.height,
-      blockBurstX - 10,blockBurstY -10,20,20);
-      console.log('part 1');
-
-  // if (frame > currentFrame + 1){
-  // ctx.drawImage(Img.block,
-  //     20,0,Img.block.width,Img.block.height,
-  //     blockBurstX - 10,blockBurstY -10,20,20);
-  //     console.log('part 2');
-  // };
-  // if (frame = currentFrame + 2){
-  // ctx.drawImage(Img.block,
-  //     0,20,Img.block.width,Img.block.height,
-  //     blockBurstX - 10,blockBurstY -10,20,20);
-  //     console.log('part 3');
-  // };
-  // if (frame = currentFrame + 3){
-  // ctx.drawImage(Img.block,
-  //     20,20,Img.block.width,Img.block.height,
-  //     blockBurstX - 10,blockBurstY -10,20,20);
-  //     console.log('part 4');
-  // };
+    animation * 20,0,Img.block.width,Img.block.height,
+    blockBurstX - 10,blockBurstY - 10,20,20);
 };
 
 (function() {
@@ -382,12 +353,12 @@ var updateBallPosition = function() {
     ball.spdY = -(ballSpeed - 1);
   };
 
-  // if (!lives) {
-  //   setScore();
-  //   alert('GAME OVER');
-  //   lives = 3;
-  //   document.location.reload();
-  // }
+  if (!lives) {
+    setScore();
+    alert('GAME OVER');
+    lives = 3;
+    document.location.reload();
+  }
 
   if (ball.x < ball.ballSize * 2) {
     if (ball.y > playerLeft.y - (playerLeft.height / 2) && ball.y < playerLeft.y + (playerLeft.height / 2) && ball.x > playerLeft.x - (playerLeft.width * 2)) {
